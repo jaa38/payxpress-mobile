@@ -1,26 +1,21 @@
 import {
-  Tabs,
   TabList,
-  TabTrigger,
-  TabSlot,
-  TabTriggerSlotProps,
   TabListProps,
-} from 'expo-router/ui';
-import {
-  Pressable,
-  useColorScheme,
-  View,
-  StyleSheet,
-} from 'react-native';
+  Tabs,
+  TabSlot,
+  TabTrigger,
+  TabTriggerSlotProps,
+} from "expo-router/ui";
+import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 
-import { AppText } from '@/components/ui/AppText';
-import { Colors, MaxContentWidth, Spacing } from '@/constants/theme';
-import { theme } from '@/theme';
+import { AppText } from "@/components/ui/AppText";
+import { Colors, MaxContentWidth, Spacing } from "@/constants/theme";
+import { theme } from "@/theme";
 
 export default function AppTabs() {
   return (
     <Tabs>
-      <TabSlot style={{ height: '100%' }} />
+      <TabSlot style={{ height: "100%" }} />
 
       <TabList asChild>
         <CustomTabList>
@@ -28,28 +23,16 @@ export default function AppTabs() {
             <TabButton>Home</TabButton>
           </TabTrigger>
 
-          <TabTrigger
-            name="transactions"
-            href="/(tabs)/transactions"
-            asChild
-          >
+          <TabTrigger name="wallet" href="/(tabs)/pay-bills" asChild>
+            <TabButton>Pay Bills</TabButton>
+          </TabTrigger>
+
+          <TabTrigger name="transactions" href="/(tabs)/transactions" asChild>
             <TabButton>Transactions</TabButton>
           </TabTrigger>
 
-          <TabTrigger
-            name="wallet"
-            href="/(tabs)/wallet"
-            asChild
-          >
-            <TabButton>Wallet</TabButton>
-          </TabTrigger>
-
-          <TabTrigger
-            name="more"
-            href="/(tabs)/more"
-            asChild
-          >
-            <TabButton>More</TabButton>
+          <TabTrigger name="more" href="/(tabs)/account" asChild>
+            <TabButton>Account</TabButton>
           </TabTrigger>
         </CustomTabList>
       </TabList>
@@ -65,21 +48,12 @@ export function TabButton({
   return (
     <Pressable
       {...props}
-      style={({ pressed }) => [
-        styles.tabButton,
-        pressed && styles.pressed,
-      ]}
+      style={({ pressed }) => [styles.tabButton, pressed && styles.pressed]}
     >
       <View
-        style={[
-          styles.tabButtonView,
-          isFocused && styles.tabButtonViewFocused,
-        ]}
+        style={[styles.tabButtonView, isFocused && styles.tabButtonViewFocused]}
       >
-        <AppText
-          variant="label"
-          color={isFocused ? 'brand' : 'secondary'}
-        >
+        <AppText variant="label" color={isFocused ? "brand" : "secondary"}>
           {children}
         </AppText>
       </View>
@@ -89,17 +63,12 @@ export function TabButton({
 
 export function CustomTabList(props: TabListProps) {
   const scheme = useColorScheme();
-  const colors =
-    Colors[scheme === 'unspecified' ? 'light' : scheme];
+  const colors = Colors[scheme === "unspecified" ? "light" : scheme];
 
   return (
     <View {...props} style={styles.tabListContainer}>
       <View style={styles.innerContainer}>
-        <AppText
-          variant="bodyBold"
-          color="brand"
-          style={styles.brandText}
-        >
+        <AppText variant="bodyBold" color="brand" style={styles.brandText}>
           PayXpress
         </AppText>
 
@@ -108,7 +77,7 @@ export function CustomTabList(props: TabListProps) {
         <View style={styles.spacer} />
 
         <AppText variant="caption" color="secondary">
-          {colors.text ? 'Payments made simple' : ''}
+          {colors.text ? "Payments made simple" : ""}
         </AppText>
       </View>
     </View>
@@ -117,21 +86,21 @@ export function CustomTabList(props: TabListProps) {
 
 const styles = StyleSheet.create({
   tabListContainer: {
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     bottom: 0,
     padding: Spacing.three,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
 
   innerContainer: {
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.five,
     borderRadius: Spacing.five,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flexGrow: 1,
     gap: Spacing.two,
     maxWidth: MaxContentWidth,

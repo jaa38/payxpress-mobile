@@ -3,16 +3,16 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui/AppText';
 import { spacing, theme } from '@/theme';
 
-export default function MoreScreen() {
+export default function WalletScreen() {
   return (
     <View style={styles.container}>
-      <AppText variant="h1">More</AppText>
+      <AppText variant="h1">Pay Bills</AppText>
       <AppText
         variant="body"
         color="secondary"
         style={styles.description}
       >
-        Additional PayXpress features will be built in later sprints.
+        Wallet functionality will be built in a later sprint.
       </AppText>
     </View>
   );
