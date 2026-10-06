@@ -1,4 +1,5 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import PayXpressLogo from "@/components/PayXpressLogo";
 import { AppText } from "@/components/ui/AppText";
@@ -6,35 +7,63 @@ import { spacing, theme } from "@/theme";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <PayXpressLogo
-        width={180}
-        height={60}
-        containerStyle={styles.logoContainer}
-      />
+    <SafeAreaView
+      edges={["top"]}
+      style={{
+        flex: 1,
+        backgroundColor: theme.background.primary,
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          paddingHorizontal: spacing.lg,
+        }}
+      >
+        {/* Header */}
+        <View
+          style={{
+            alignItems: "flex-start",
+            paddingTop: spacing.sm,
+            marginBottom: spacing.xl,
+          }}
+        >
+          <PayXpressLogo
+            width={180}
+            height={60}
+            containerStyle={{
+              alignItems: "flex-start",
+            }}
+          />
+        </View>
 
-      <AppText variant="h1">Home</AppText>
+        {/* Page heading */}
+        <View
+          style={{
+            marginTop: spacing.md,
+          }}
+        >
+          <AppText
+            variant="h1"
+            style={{
+              marginBottom: spacing.sm,
+            }}
+          >
+            Home
+          </AppText>
 
-      <AppText variant="body" color="secondary" style={styles.description}>
-        PayXpress home will be built in a later sprint.
-      </AppText>
-    </View>
+          <AppText
+            variant="body"
+            color="secondary"
+            style={{
+              maxWidth: 360,
+              lineHeight: 26,
+            }}
+          >
+            PayXpress home will be built in a later sprint.
+          </AppText>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: spacing.lg,
-    backgroundColor: theme.background.primary,
-  },
-
-  logoContainer: {
-    alignItems: "flex-start",
-    marginBottom: spacing.lg,
-  },
-
-  description: {
-    marginTop: spacing.sm,
-  },
-});
