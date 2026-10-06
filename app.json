@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "payxpress-mobile",
+    "name": "PayXpress",
     "slug": "payxpress-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/logo/PayXpress-icon.png",
     "scheme": "payxpressmobile",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon",
+      "icon": "./assets/logo/PayXpress-icon.png",
       "bundleIdentifier": "com.jaa38.payxpressmobile"
     },
     "android": {

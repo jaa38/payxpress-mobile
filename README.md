@@ -1,61 +1,183 @@
-<<<<<<< HEAD
-# Welcome to your Expo app 👋
+# PayXpress Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern React Native fintech application for payments, wallet management, transfers, bill payments, and value-added services.
 
-## Get started
+PayXpress is being developed as a multi-service financial platform designed to make everyday financial and utility transactions easier, faster, and more accessible from a single application.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Product Vision
 
-2. Start the app
+PayXpress aims to provide users with a convenient platform for managing everyday financial and value-added services.
 
-   ```bash
-   npx expo start
-   ```
+The broader product vision includes:
 
-In the output, you'll find options to open the app in a
+- Digital wallet management
+- Wallet-to-wallet transfers
+- Airtime and data purchases
+- Electricity bill payments
+- Cable TV subscriptions
+- Government payments
+- Insurance services
+- Pension services
+- Educational payments
+- Ticket booking
+- Beneficiary management
+- Transaction history
+- Automated payments and reminders
+- User profiles and customization
+- Real-time notifications
+- Multilingual support
+- Loyalty and rewards
+- Referral rewards
+- Secure identity verification
+- Fraud prevention and transaction security
+- Customer support
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+The product is intended to support multiple platforms, including mobile applications, web portals, and USSD.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Project Status
 
-When you're ready, run:
+### Sprint 1 — Foundation & Architecture
 
-```bash
-npm run reset-project
-```
+**Status: Complete**
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Sprint 1 establishes the technical foundation required to build PayXpress as a scalable React Native application.
 
-### Other setup steps
+### Completed
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- React Native + Expo foundation
+- TypeScript with strict mode
+- Expo Router navigation
+- Feature-oriented project structure
+- Environment configuration
+- Centralized Axios API client
+- TanStack Query configuration
+- Zustand application state
+- Expo SecureStore integration
+- MMKV storage integration
+- SQLite database foundation
+- Design system foundations
+- Reusable UI components
+- Global application providers
+- Centralized error handling
+- Development logging
+- Jest testing foundation
+- iOS native build verification
+- Android native build verification
+- TypeScript validation
+- Expo Doctor validation
+- GitHub repository and main branch
+- Sprint 1 Git checkpoint
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## Tech Stack
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Core
 
-## Join the community
+- React Native
+- Expo
+- TypeScript
+- Expo Router
 
-Join our community of developers creating universal apps.
+### State & Data
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-=======
-# payxpress-mobile
-A modern React Native fintech app for seamless payments, wallet management, bill payments, transfers, transaction tracking, and digital financial service
->>>>>>> origin/main
+- TanStack Query
+- Zustand
+- Axios
+
+### Forms & Validation
+
+- React Hook Form
+- Zod
+- `@hookform/resolvers`
+
+### Storage
+
+- Expo SecureStore
+- React Native MMKV
+- Expo SQLite
+
+### Authentication & Device Security
+
+- Expo LocalAuthentication
+- Secure device storage
+- Biometric authentication foundation
+
+### Testing
+
+- Jest
+- Jest Expo
+- React Native Testing Library
+- React Test Renderer
+
+---
+
+## Architecture
+
+PayXpress follows a feature-oriented React Native architecture.
+
+```text
+src/
+├── app/
+│   ├── _layout.tsx
+│   └── (tabs)/
+│       ├── _layout.tsx
+│       ├── index.tsx
+│       ├── transactions.tsx
+│       ├── wallet.tsx
+│       └── more.tsx
+│
+├── components/
+│   ├── ui/
+│   │   ├── AppText/
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   └── Input/
+│   └── ...
+│
+├── config/
+│   └── env.ts
+│
+├── constants/
+│   └── storage.ts
+│
+├── features/
+│   └── ...
+│
+├── hooks/
+│   └── ...
+│
+├── i18n/
+│   └── ...
+│
+├── lib/
+│   ├── http-client.ts
+│   └── query-client.ts
+│
+├── providers/
+│   └── AppProviders.tsx
+│
+├── services/
+│   ├── api/
+│   └── storage/
+│       ├── secure-storage.ts
+│       ├── mmkv-storage.ts
+│       └── database.ts
+│
+├── store/
+│   └── app-store.ts
+│
+├── theme/
+│   ├── colors.ts
+│   └── theme.ts
+│
+├── types/
+│   └── ...
+│
+└── utils/
+    ├── errors/
+    └── logger/
