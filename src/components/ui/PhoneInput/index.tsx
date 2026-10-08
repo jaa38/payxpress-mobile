@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-import { View, TextInput, Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, TextInput, View } from "react-native";
 
 import CountryPicker, { Country } from "react-native-country-picker-modal";
 
 import { AppText } from "@/components/ui/AppText";
 
 import { radius, theme } from "@/theme";
-
-import { Ionicons } from "@expo/vector-icons";
 
 interface PhoneNumberInputProps {
   label?: string;

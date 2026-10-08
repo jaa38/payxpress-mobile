@@ -1,6 +1,6 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -8,11 +8,12 @@ import {
   Pressable,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { OTPInput } from "@/components/ui/OTPInput";
-import { colors, spacing, theme } from "@/theme";
+import { spacing, theme } from "@/theme";
 
 export default function VerifyEmailScreen() {
   const [otp, setOtp] = useState("");
@@ -37,12 +38,13 @@ export default function VerifyEmailScreen() {
 
   return (
     <SafeAreaView
-      edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: colors.neutral.white,
+        backgroundColor: theme.background.primary,
       }}
     >
+      <StatusBar style="auto" />
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{
@@ -59,39 +61,43 @@ export default function VerifyEmailScreen() {
           <View
             style={{
               paddingTop: spacing.md,
-              paddingBottom: spacing.xl,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
+            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
+              hitSlop={8}
               onPress={() => router.back()}
               style={{
-                width: 44,
-                height: 44,
-                justifyContent: "center",
+                width: 32,
+                height: 32,
                 alignItems: "center",
+                justifyContent: "center",
+                marginRight: spacing.md,
+                flexShrink: 0,
               }}
             >
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.text.primary}
+                color={theme.input.icon}
               />
             </Pressable>
 
+            {/* Header text */}
             <View
               style={{
                 flex: 1,
+                width: 0,
               }}
             >
               <AppText
                 variant="h1"
                 color="heading"
                 style={{
-                  fontWeight: "700",
                   marginBottom: spacing.sm,
                 }}
               >
@@ -101,6 +107,11 @@ export default function VerifyEmailScreen() {
               <AppText
                 variant="body"
                 color="muted"
+                style={{
+                  width: "100%",
+                  lineHeight: 26,
+                  flexWrap: "wrap",
+                }}
               >
                 Enter the 6-digit OTP sent to your email address.
               </AppText>
@@ -111,6 +122,7 @@ export default function VerifyEmailScreen() {
           <View
             style={{
               flex: 1,
+              paddingTop: spacing.lg,
             }}
           >
             <View
@@ -161,10 +173,7 @@ export default function VerifyEmailScreen() {
                 paddingVertical: spacing.xs,
               }}
             >
-              <AppText
-                variant="bodyBold"
-                color="link"
-              >
+              <AppText variant="bodyBold" color="link">
                 Resend OTP
               </AppText>
             </Pressable>
@@ -173,7 +182,7 @@ export default function VerifyEmailScreen() {
           {/* Continue */}
           <View
             style={{
-              paddingVertical: spacing.lg,
+              paddingBottom: spacing.lg,
             }}
           >
             <Button

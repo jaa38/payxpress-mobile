@@ -1,18 +1,14 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { colors, spacing, theme } from "@/theme";
+import { spacing, theme } from "@/theme";
 
 export default function SecurePasswordScreen() {
   const [password, setPassword] = useState("");
@@ -25,6 +21,7 @@ export default function SecurePasswordScreen() {
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
   const hasNumber = /\d/.test(password);
+
   const passwordsMatch =
     password.length > 0 &&
     confirmPassword.length > 0 &&
@@ -71,17 +68,15 @@ export default function SecurePasswordScreen() {
     router.replace("/(tabs)");
   };
 
-  const getRequirementColor = (met: boolean) =>
-    met ? theme.text.success : theme.text.muted;
-
   return (
     <SafeAreaView
-      edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: colors.neutral.white,
+        backgroundColor: theme.background.primary,
       }}
     >
+      <StatusBar style="auto" />
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{
@@ -98,39 +93,43 @@ export default function SecurePasswordScreen() {
           <View
             style={{
               paddingTop: spacing.md,
-              paddingBottom: spacing.xl,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
+            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
+              hitSlop={8}
               onPress={() => router.back()}
               style={{
-                width: 44,
-                height: 44,
-                justifyContent: "center",
+                width: 32,
+                height: 32,
                 alignItems: "center",
+                justifyContent: "center",
+                marginRight: spacing.md,
+                flexShrink: 0,
               }}
             >
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.text.primary}
+                color={theme.input.icon}
               />
             </Pressable>
 
+            {/* Header text */}
             <View
               style={{
                 flex: 1,
+                width: 0,
               }}
             >
               <AppText
                 variant="h1"
                 color="heading"
                 style={{
-                  fontWeight: "700",
                   marginBottom: spacing.sm,
                 }}
               >
@@ -140,6 +139,11 @@ export default function SecurePasswordScreen() {
               <AppText
                 variant="body"
                 color="muted"
+                style={{
+                  width: "100%",
+                  lineHeight: 26,
+                  flexWrap: "wrap",
+                }}
               >
                 Create a strong password to keep your PayXpress account secure.
               </AppText>
@@ -150,8 +154,10 @@ export default function SecurePasswordScreen() {
           <View
             style={{
               flex: 1,
+              paddingTop: spacing.lg,
             }}
           >
+            {/* Password */}
             <Input
               label="Password"
               placeholder="Enter your password"
@@ -237,6 +243,7 @@ export default function SecurePasswordScreen() {
               </AppText>
             </View>
 
+            {/* Confirm Password */}
             <View
               style={{
                 marginTop: spacing.lg,
@@ -269,9 +276,7 @@ export default function SecurePasswordScreen() {
                   >
                     <Ionicons
                       name={
-                        showConfirmPassword
-                          ? "eye-off-outline"
-                          : "eye-outline"
+                        showConfirmPassword ? "eye-off-outline" : "eye-outline"
                       }
                       size={22}
                       color={theme.text.muted}
@@ -281,6 +286,7 @@ export default function SecurePasswordScreen() {
               />
             </View>
 
+            {/* Password Match */}
             {confirmPassword.length > 0 ? (
               <AppText
                 variant="bodySmall"
@@ -295,6 +301,7 @@ export default function SecurePasswordScreen() {
               </AppText>
             ) : null}
 
+            {/* Error */}
             {error ? (
               <AppText
                 variant="bodySmall"
@@ -311,7 +318,7 @@ export default function SecurePasswordScreen() {
           {/* Create Account */}
           <View
             style={{
-              paddingVertical: spacing.lg,
+              paddingBottom: spacing.lg,
             }}
           >
             <Button
