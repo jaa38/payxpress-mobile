@@ -5,6 +5,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
 import { useColorScheme } from "react-native";
 
 import { queryClient } from "@/lib/query-client";
+import { AuthBootstrap } from "@/providers/AuthBootstrap";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -16,7 +17,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        {children}
+        <AuthBootstrap>{children}</AuthBootstrap>
       </ThemeProvider>
     </QueryClientProvider>
   );

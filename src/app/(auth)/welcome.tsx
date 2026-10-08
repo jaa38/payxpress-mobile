@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
-import { colors, spacing } from "@/theme";
+import { colors, radius, spacing } from "@/theme";
 
 type OnboardingSlide = {
   id: string;
@@ -117,12 +117,34 @@ export default function WelcomeScreen() {
       }}
     >
       {/* Progress indicators */}
+      <View
+        style={{
+          flexDirection: "row",
+          gap: spacing.md,
+          paddingHorizontal: spacing.lg,
+          paddingTop: spacing.sm,
+        }}
+      >
+        {SLIDES.map((slide, index) => (
+          <View
+            key={slide.id}
+            style={{
+              flex: 1,
+              height: 5,
+              borderRadius: radius.full,
+              backgroundColor:
+                index <= currentIndex ? colors.primary[500] : colors.gray[300],
+            }}
+          />
+        ))}
+      </View>
 
       {/* PayXpress logo */}
       <View
         style={{
           alignItems: "center",
           justifyContent: "center",
+          marginTop: spacing.md,
         }}
       >
         <Image

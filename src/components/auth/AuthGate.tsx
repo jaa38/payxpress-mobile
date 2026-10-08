@@ -1,9 +1,8 @@
-import { Redirect } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 
-import AppTabs from "@/components/app-tabs";
 import { useAuthStore } from "@/store/auth-store";
 
-export default function TabsLayout() {
+export function AuthGate() {
   const isHydrating = useAuthStore((state) => state.isHydrating);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -15,5 +14,5 @@ export default function TabsLayout() {
     return <Redirect href="/welcome" />;
   }
 
-  return <AppTabs />;
+  return <Slot />;
 }
