@@ -152,13 +152,17 @@ export default function LoginScreen() {
                       showPassword ? "Hide password" : "Show password"
                     }
                     onPress={() => setShowPassword((current) => !current)}
+                    hitSlop={8}
                     style={{
-                      padding: spacing.xs,
+                      width: 40,
+                      height: 40,
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <Ionicons
                       name={showPassword ? "eye-off-outline" : "eye-outline"}
-                      size={22}
+                      size={24}
                       color={theme.text.secondary}
                     />
                   </Pressable>

@@ -190,11 +190,17 @@ export default function SecurePasswordScreen() {
                   }
                   onPress={() => setShowPassword((current) => !current)}
                   hitSlop={8}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   <Ionicons
                     name={showPassword ? "eye-off-outline" : "eye-outline"}
-                    size={22}
-                    color={theme.text.muted}
+                    size={24}
+                    color={theme.text.secondary}
                   />
                 </Pressable>
               }
@@ -279,13 +285,19 @@ export default function SecurePasswordScreen() {
                       setShowConfirmPassword((current) => !current)
                     }
                     hitSlop={8}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
                     <Ionicons
                       name={
                         showConfirmPassword ? "eye-off-outline" : "eye-outline"
                       }
-                      size={22}
-                      color={theme.text.muted}
+                      size={24}
+                      color={theme.text.secondary}
                     />
                   </Pressable>
                 }
