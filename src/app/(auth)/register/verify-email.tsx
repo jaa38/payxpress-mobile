@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -19,8 +20,10 @@ export default function VerifyEmailScreen() {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
 
+  const isOtpComplete = /^\d{6}$/.test(otp);
+
   const handleContinue = () => {
-    if (otp.length !== 6) {
+    if (!isOtpComplete) {
       setError("Enter the 6-digit OTP sent to your email.");
       return;
     }
@@ -38,9 +41,10 @@ export default function VerifyEmailScreen() {
 
   return (
     <SafeAreaView
+      edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: theme.background.surface,
       }}
     >
       <StatusBar style="auto" />
@@ -122,7 +126,7 @@ export default function VerifyEmailScreen() {
           <View
             style={{
               flex: 1,
-              paddingTop: spacing.lg,
+              marginTop: spacing["2xl"],
             }}
           >
             <View
@@ -143,8 +147,6 @@ export default function VerifyEmailScreen() {
                 onComplete={(code) => {
                   setOtp(code);
                   setError("");
-
-                  router.push("/register/secure-password");
                 }}
               />
 
@@ -182,15 +184,45 @@ export default function VerifyEmailScreen() {
           {/* Continue */}
           <View
             style={{
-              paddingBottom: spacing.lg,
+              paddingBottom: spacing.sm,
             }}
           >
             <Button
               title="Continue"
               size="large"
               onPress={handleContinue}
-              disabled={otp.length !== 6}
+              disabled={!isOtpComplete}
             />
+
+            {/* CBN licensing */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: spacing["3xl"],
+                paddingHorizontal: spacing.sm,
+                paddingBottom: spacing.xs,
+              }}
+            >
+              <Image
+                source={require("@/assets/onboarding/cbn-logo.png")}
+                resizeMode="contain"
+                accessibilityLabel="Central Bank of Nigeria"
+                style={{
+                  width: 20,
+                  height: 24,
+                  marginRight: spacing.xs,
+                }}
+              />
+
+              <AppText variant="bodySmall" color="muted">
+                Licensed by the{" "}
+                <AppText variant="bodySmallBold" color="muted">
+                  Central Bank of Nigeria
+                </AppText>
+              </AppText>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

@@ -1,18 +1,13 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { colors, spacing, theme } from "@/theme";
+import { spacing, theme } from "@/theme";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -20,8 +15,7 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const isEmailValid =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const isFormValid = isEmailValid && password.length > 0;
 
@@ -53,7 +47,7 @@ export default function LoginScreen() {
       edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: colors.neutral.white,
+        backgroundColor: theme.background.surface,
       }}
     >
       <KeyboardAvoidingView
@@ -155,23 +149,15 @@ export default function LoginScreen() {
                   <Pressable
                     accessibilityRole="button"
                     accessibilityLabel={
-                      showPassword
-                        ? "Hide password"
-                        : "Show password"
+                      showPassword ? "Hide password" : "Show password"
                     }
-                    onPress={() =>
-                      setShowPassword((current) => !current)
-                    }
+                    onPress={() => setShowPassword((current) => !current)}
                     style={{
                       padding: spacing.xs,
                     }}
                   >
                     <Ionicons
-                      name={
-                        showPassword
-                          ? "eye-off-outline"
-                          : "eye-outline"
-                      }
+                      name={showPassword ? "eye-off-outline" : "eye-outline"}
                       size={22}
                       color={theme.text.secondary}
                     />
@@ -230,7 +216,7 @@ export default function LoginScreen() {
               }}
             >
               <AppText variant="body" color="muted">
-                Don't have an account?{" "}
+                Don&apos;t have an account?
               </AppText>
 
               <Pressable

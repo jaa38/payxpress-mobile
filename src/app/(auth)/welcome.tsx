@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
-import { colors, radius, spacing } from "@/theme";
+import { colors, radius, spacing, theme } from "@/theme";
 
 type OnboardingSlide = {
   id: string;
@@ -113,7 +113,7 @@ export default function WelcomeScreen() {
       edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: colors.neutral.white,
+        backgroundColor: theme.background.surface,
       }}
     >
       {/* Progress indicators */}
@@ -276,13 +276,7 @@ export default function WelcomeScreen() {
           }}
         />
 
-        <AppText
-          variant="bodySmall"
-          color="muted"
-          style={{
-            flexShrink: 1,
-          }}
-        >
+        <AppText variant="bodySmall" color="muted">
           Licensed by the{" "}
           <AppText variant="bodySmallBold" color="muted">
             Central Bank of Nigeria

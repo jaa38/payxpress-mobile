@@ -2,7 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
@@ -17,21 +23,26 @@ export default function SecurePasswordScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Password requirements
   const hasMinimumLength = password.length >= 8;
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
   const hasNumber = /\d/.test(password);
+  const hasSpecialCharacter = /[^A-Za-z0-9]/.test(password);
 
+  // Confirm password validation
   const passwordsMatch =
     password.length > 0 &&
     confirmPassword.length > 0 &&
     password === confirmPassword;
 
+  // Enable Create Account only when all requirements are met
   const canCreateAccount =
     hasMinimumLength &&
     hasUppercase &&
     hasLowercase &&
     hasNumber &&
+    hasSpecialCharacter &&
     passwordsMatch;
 
   const handleCreateAccount = () => {
@@ -55,7 +66,7 @@ export default function SecurePasswordScreen() {
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (!passwordsMatch) {
       setError("Passwords do not match.");
       return;
     }
@@ -70,9 +81,10 @@ export default function SecurePasswordScreen() {
 
   return (
     <SafeAreaView
+      edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: theme.background.surface,
       }}
     >
       <StatusBar style="auto" />
@@ -154,7 +166,7 @@ export default function SecurePasswordScreen() {
           <View
             style={{
               flex: 1,
-              paddingTop: spacing.lg,
+              marginTop: spacing["2xl"],
             }}
           >
             {/* Password */}
@@ -193,24 +205,17 @@ export default function SecurePasswordScreen() {
               style={{
                 marginTop: spacing.md,
                 paddingLeft: spacing.xs,
+                flexDirection: "column",
+                gap: spacing.xs,
               }}
             >
-              <AppText
-                variant="bodySmall"
-                color="muted"
-                style={{
-                  marginBottom: spacing.xs,
-                }}
-              >
+              <AppText variant="bodySmall" color="muted">
                 Your password must contain:
               </AppText>
 
               <AppText
                 variant="bodySmall"
                 color={hasMinimumLength ? "success" : "muted"}
-                style={{
-                  marginBottom: spacing.xs,
-                }}
               >
                 {hasMinimumLength ? "✓" : "•"} At least 8 characters
               </AppText>
@@ -218,9 +223,6 @@ export default function SecurePasswordScreen() {
               <AppText
                 variant="bodySmall"
                 color={hasUppercase ? "success" : "muted"}
-                style={{
-                  marginBottom: spacing.xs,
-                }}
               >
                 {hasUppercase ? "✓" : "•"} One uppercase letter
               </AppText>
@@ -228,9 +230,6 @@ export default function SecurePasswordScreen() {
               <AppText
                 variant="bodySmall"
                 color={hasLowercase ? "success" : "muted"}
-                style={{
-                  marginBottom: spacing.xs,
-                }}
               >
                 {hasLowercase ? "✓" : "•"} One lowercase letter
               </AppText>
@@ -240,6 +239,13 @@ export default function SecurePasswordScreen() {
                 color={hasNumber ? "success" : "muted"}
               >
                 {hasNumber ? "✓" : "•"} One number
+              </AppText>
+
+              <AppText
+                variant="bodySmall"
+                color={hasSpecialCharacter ? "success" : "muted"}
+              >
+                {hasSpecialCharacter ? "✓" : "•"} One special character
               </AppText>
             </View>
 
@@ -287,7 +293,7 @@ export default function SecurePasswordScreen() {
             </View>
 
             {/* Password Match */}
-            {confirmPassword.length > 0 ? (
+            {confirmPassword.length > 0 && (
               <AppText
                 variant="bodySmall"
                 color={passwordsMatch ? "success" : "error"}
@@ -299,7 +305,7 @@ export default function SecurePasswordScreen() {
                   ? "✓ Passwords match"
                   : "Passwords do not match"}
               </AppText>
-            ) : null}
+            )}
 
             {/* Error */}
             {error ? (
@@ -318,7 +324,7 @@ export default function SecurePasswordScreen() {
           {/* Create Account */}
           <View
             style={{
-              paddingBottom: spacing.lg,
+              paddingBottom: spacing.sm,
             }}
           >
             <Button
@@ -327,6 +333,36 @@ export default function SecurePasswordScreen() {
               onPress={handleCreateAccount}
               disabled={!canCreateAccount}
             />
+
+            {/* CBN Licensing */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: spacing["3xl"],
+                paddingHorizontal: spacing.sm,
+                paddingBottom: spacing.xs,
+              }}
+            >
+              <Image
+                source={require("@/assets/onboarding/cbn-logo.png")}
+                resizeMode="contain"
+                accessibilityLabel="Central Bank of Nigeria"
+                style={{
+                  width: 20,
+                  height: 24,
+                  marginRight: spacing.xs,
+                }}
+              />
+
+              <AppText variant="bodySmall" color="muted">
+                Licensed by the{" "}
+                <AppText variant="bodySmallBold" color="muted">
+                  Central Bank of Nigeria
+                </AppText>
+              </AppText>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

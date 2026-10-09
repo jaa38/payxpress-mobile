@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -23,9 +24,7 @@ export default function SetupAccountScreen() {
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const canContinue =
-    email.trim().length > 0 &&
-    isValidEmail &&
-    tagName.trim().length > 0;
+    email.trim().length > 0 && isValidEmail && tagName.trim().length > 0;
 
   const handleContinue = () => {
     if (!email.trim()) {
@@ -56,7 +55,7 @@ export default function SetupAccountScreen() {
       edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: theme.background.surface,
       }}
     >
       <KeyboardAvoidingView
@@ -136,7 +135,7 @@ export default function SetupAccountScreen() {
           <View
             style={{
               flex: 1,
-              paddingTop: spacing.lg,
+              marginTop: spacing["2xl"],
             }}
           >
             <Input
@@ -214,7 +213,7 @@ export default function SetupAccountScreen() {
           {/* Continue */}
           <View
             style={{
-              paddingVertical: spacing.lg,
+              paddingBottom: spacing.sm,
             }}
           >
             <Button
@@ -223,6 +222,36 @@ export default function SetupAccountScreen() {
               onPress={handleContinue}
               disabled={!canContinue}
             />
+
+            {/* CBN licensing */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: spacing["3xl"],
+                paddingHorizontal: spacing.sm,
+                paddingBottom: spacing.xs,
+              }}
+            >
+              <Image
+                source={require("@/assets/onboarding/cbn-logo.png")}
+                resizeMode="contain"
+                accessibilityLabel="Central Bank of Nigeria"
+                style={{
+                  width: 20,
+                  height: 24,
+                  marginRight: spacing.xs,
+                }}
+              />
+
+              <AppText variant="bodySmall" color="muted">
+                Licensed by the{" "}
+                <AppText variant="bodySmallBold" color="muted">
+                  Central Bank of Nigeria
+                </AppText>
+              </AppText>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

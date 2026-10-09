@@ -1,7 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
@@ -30,12 +36,14 @@ export default function BVNConfirmationScreen() {
     // TODO: Connect to the OTP resend API.
   };
 
+  const isOtpComplete = /^\d{6}$/.test(otp);
+
   return (
     <SafeAreaView
       edges={["top", "bottom"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: theme.background.surface,
       }}
     >
       <KeyboardAvoidingView
@@ -87,26 +95,13 @@ export default function BVNConfirmationScreen() {
                 width: 0,
               }}
             >
-              <AppText
-                variant="h1"
-                color="heading"
-                style={{
-                  marginBottom: spacing.sm,
-                }}
-              >
-                Confirm your BVN
+              <AppText variant="h1" color="heading">
+                BVN Confirmation
               </AppText>
 
-              <AppText
-                variant="body"
-                color="muted"
-                style={{
-                  width: "100%",
-                  lineHeight: 26,
-                  flexWrap: "wrap",
-                }}
-              >
-                Enter the 6-digit OTP sent to your registered phone number.
+              <AppText variant="body" color="muted">
+                A message with OTP has being sent to your phone number. Enter
+                the code to continue
               </AppText>
             </View>
           </View>
@@ -115,7 +110,7 @@ export default function BVNConfirmationScreen() {
           <View
             style={{
               flex: 1,
-              paddingTop: spacing.lg,
+              marginTop: spacing["2xl"],
             }}
           >
             <View
@@ -136,8 +131,6 @@ export default function BVNConfirmationScreen() {
                 onComplete={(code) => {
                   setOtp(code);
                   setError("");
-
-                  router.push("/register/setup-account");
                 }}
               />
 
@@ -175,15 +168,45 @@ export default function BVNConfirmationScreen() {
           {/* Continue */}
           <View
             style={{
-              paddingVertical: spacing.lg,
+              paddingBottom: spacing.sm,
             }}
           >
             <Button
-              title="Continue"
+              title="Verify"
               size="large"
               onPress={handleContinue}
-              disabled={otp.length !== 6}
+              disabled={!isOtpComplete}
             />
+
+            {/* CBN licensing */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: spacing["3xl"],
+                paddingHorizontal: spacing.sm,
+                paddingBottom: spacing.xs,
+              }}
+            >
+              <Image
+                source={require("@/assets/onboarding/cbn-logo.png")}
+                resizeMode="contain"
+                accessibilityLabel="Central Bank of Nigeria"
+                style={{
+                  width: 20,
+                  height: 24,
+                  marginRight: spacing.xs,
+                }}
+              />
+
+              <AppText variant="bodySmall" color="muted">
+                Licensed by the{" "}
+                <AppText variant="bodySmallBold" color="muted">
+                  Central Bank of Nigeria
+                </AppText>
+              </AppText>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

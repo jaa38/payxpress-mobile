@@ -4,7 +4,7 @@ import { router } from "expo-router";
 
 import { AppText } from "@/components/ui/AppText";
 import { authService } from "@/services/auth/auth-service";
-import { spacing, theme } from "@/theme";
+import { colors, spacing, theme } from "@/theme";
 
 export default function AccountScreen() {
   const handleLogout = () => {
@@ -40,7 +40,7 @@ export default function AccountScreen() {
       edges={["top"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: colors.neutral.white,
       }}
     >
       <View

@@ -10,7 +10,7 @@ export default function PayBillsScreen() {
       edges={["top"]}
       style={{
         flex: 1,
-        backgroundColor: theme.background.primary,
+        backgroundColor: theme.background.surface,
       }}
     >
       <View

@@ -30,12 +30,14 @@ export const theme = {
     subtle: colors.gray[100],
 
     brand: colors.primary[50],
+    brandui: colors.primary[100],
     accent: colors.secondary[50],
 
     success: colors.success[100],
     error: colors.error[100],
     warning: colors.warning[100],
     info: colors.info[100],
+    
 
     inverse: colors.gray[900],
 
