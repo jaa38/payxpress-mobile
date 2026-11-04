@@ -24,6 +24,18 @@ export const theme = {
     link: colors.secondary[500],
   },
 
+  icon: {
+    primary: colors.primary[500],
+    secondary: colors.secondary[500],
+
+    success: colors.success[600],
+    error: colors.error[600],
+    warning: colors.warning[600],
+    info: colors.info[600],
+
+    inverse: colors.neutral.white,
+  },
+
   background: {
     primary: colors.gray[50],
     surface: colors.neutral.white,
@@ -37,7 +49,7 @@ export const theme = {
     error: colors.error[100],
     warning: colors.warning[100],
     info: colors.info[100],
-    
+
 
     inverse: colors.gray[900],
 

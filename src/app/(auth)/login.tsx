@@ -1,7 +1,15 @@
+
 import { Ionicons } from "@expo/vector-icons";
+import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
@@ -15,7 +23,8 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const isEmailValid =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const isFormValid = isEmailValid && password.length > 0;
 
@@ -40,6 +49,82 @@ export default function LoginScreen() {
      * The API response should eventually provide the
      * access and refresh tokens required by authSession.
      */
+  };
+
+  // Face ID authentication
+  const handleBiometricLogin = async () => {
+    try {
+      // Check device biometric hardware
+      const hasHardware =
+        await LocalAuthentication.hasHardwareAsync();
+
+      if (!hasHardware) {
+        Alert.alert(
+          "Biometric authentication unavailable",
+          "Your device does not support biometric authentication."
+        );
+        return;
+      }
+
+      // Check whether biometrics are enrolled
+      const isEnrolled =
+        await LocalAuthentication.isEnrolledAsync();
+
+      if (!isEnrolled) {
+        Alert.alert(
+          "Face ID not configured",
+          "Please set up Face ID in your device settings before continuing."
+        );
+        return;
+      }
+
+      // Ensure Face ID is supported
+      const supportedTypes =
+        await LocalAuthentication.supportedAuthenticationTypesAsync();
+
+      const hasFaceID = supportedTypes.includes(
+        LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION
+      );
+
+      if (Platform.OS === "ios" && !hasFaceID) {
+        Alert.alert(
+          "Face ID unavailable",
+          "Face ID is not available on this device."
+        );
+        return;
+      }
+
+      // Trigger native biometric authentication
+      const result =
+        await LocalAuthentication.authenticateAsync({
+          promptMessage: "Sign in to PayXpress",
+          cancelLabel: "Cancel",
+          disableDeviceFallback: true,
+        });
+
+      if (result.success) {
+        /*
+         * TODO:
+         * Restore the existing authenticated session
+         * using the securely stored refresh token.
+         *
+         * Face ID verification alone does not authenticate
+         * the user with the PayXpress backend.
+         */
+
+        Alert.alert(
+          "Face ID verified",
+          "Connect session restoration to complete biometric sign-in."
+        );
+      }
+    } catch (error) {
+      console.error("Biometric authentication error:", error);
+
+      Alert.alert(
+        "Authentication error",
+        "Unable to complete biometric authentication. Please try again."
+      );
+    }
   };
 
   return (
@@ -92,9 +177,7 @@ export default function LoginScreen() {
               <AppText
                 variant="h1"
                 color="heading"
-                style={{
-                  fontWeight: "700",
-                }}
+                style={{ fontWeight: "700" }}
               >
                 Welcome back
               </AppText>
@@ -102,9 +185,7 @@ export default function LoginScreen() {
               <AppText
                 variant="body"
                 color="muted"
-                style={{
-                  marginTop: spacing.sm,
-                }}
+                style={{ marginTop: spacing.sm }}
               >
                 Log in to your PayXpress account.
               </AppText>
@@ -112,11 +193,7 @@ export default function LoginScreen() {
           </View>
 
           {/* Form */}
-          <View
-            style={{
-              flex: 1,
-            }}
-          >
+          <View style={{ flex: 1 }}>
             <Input
               label="Email Address"
               placeholder="Enter your email address"
@@ -151,7 +228,9 @@ export default function LoginScreen() {
                     accessibilityLabel={
                       showPassword ? "Hide password" : "Show password"
                     }
-                    onPress={() => setShowPassword((current) => !current)}
+                    onPress={() =>
+                      setShowPassword((current) => !current)
+                    }
                     hitSlop={8}
                     style={{
                       width: 40,
@@ -161,7 +240,11 @@ export default function LoginScreen() {
                     }}
                   >
                     <Ionicons
-                      name={showPassword ? "eye-off-outline" : "eye-outline"}
+                      name={
+                        showPassword
+                          ? "eye-off-outline"
+                          : "eye-outline"
+                      }
                       size={24}
                       color={theme.text.secondary}
                     />
@@ -173,7 +256,7 @@ export default function LoginScreen() {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Forgot password"
-              onPress={() => {}}
+              onPress={() => { }}
               style={{
                 alignSelf: "flex-end",
                 marginTop: spacing.md,
@@ -189,9 +272,7 @@ export default function LoginScreen() {
               <AppText
                 variant="bodySmall"
                 color="error"
-                style={{
-                  marginTop: spacing.md,
-                }}
+                style={{ marginTop: spacing.md }}
               >
                 {error}
               </AppText>
@@ -204,13 +285,31 @@ export default function LoginScreen() {
               paddingVertical: spacing.lg,
             }}
           >
+            {/* Face ID Secondary Button */}
+            <Button
+              title="Sign In with Face ID"
+              variant="tertiary"
+              size="large"
+              onPress={handleBiometricLogin}
+
+              style={{
+                width: "100%",
+                marginBottom: spacing.md,
+              }}
+            />
+
+            {/* Primary Login Button */}
             <Button
               title="Login"
               size="large"
               onPress={handleLogin}
               disabled={!isFormValid}
+              style={{
+                width: "100%",
+              }}
             />
 
+            {/* Register */}
             <View
               style={{
                 flexDirection: "row",
@@ -220,7 +319,7 @@ export default function LoginScreen() {
               }}
             >
               <AppText variant="body" color="muted">
-                Don&apos;t have an account?
+                Don't have an account?
               </AppText>
 
               <Pressable
