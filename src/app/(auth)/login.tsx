@@ -1,6 +1,5 @@
 
 import { Ionicons } from "@expo/vector-icons";
-import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -15,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { biometricAuth } from "@/services/auth/biometric-auth";
 import { spacing, theme } from "@/theme";
 
 export default function LoginScreen() {
@@ -22,12 +22,14 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isBiometricLoading, setIsBiometricLoading] = useState(false);
 
   const isEmailValid =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const isFormValid = isEmailValid && password.length > 0;
 
+  // Normal email and password login
   const handleLogin = () => {
     if (!isEmailValid) {
       setError("Enter a valid email address.");
@@ -51,72 +53,54 @@ export default function LoginScreen() {
      */
   };
 
-  // Face ID authentication
+  // Biometric login
   const handleBiometricLogin = async () => {
+    if (isBiometricLoading) return;
+
     try {
-      // Check device biometric hardware
-      const hasHardware =
-        await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricLoading(true);
 
-      if (!hasHardware) {
-        Alert.alert(
-          "Biometric authentication unavailable",
-          "Your device does not support biometric authentication."
-        );
-        return;
-      }
+      const result = await biometricAuth.authenticate();
 
-      // Check whether biometrics are enrolled
-      const isEnrolled =
-        await LocalAuthentication.isEnrolledAsync();
+      if (!result.success) {
+        // Avoid showing an error when the user intentionally cancels.
+        if (
+          result.error === "user_cancel" ||
+          result.error === "system_cancel" ||
+          result.error === "app_cancel"
+        ) {
+          return;
+        }
 
-      if (!isEnrolled) {
-        Alert.alert(
-          "Face ID not configured",
-          "Please set up Face ID in your device settings before continuing."
-        );
-        return;
-      }
-
-      // Ensure Face ID is supported
-      const supportedTypes =
-        await LocalAuthentication.supportedAuthenticationTypesAsync();
-
-      const hasFaceID = supportedTypes.includes(
-        LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION
-      );
-
-      if (Platform.OS === "ios" && !hasFaceID) {
         Alert.alert(
           "Face ID unavailable",
-          "Face ID is not available on this device."
+          result.error ||
+            "Unable to complete biometric authentication. Please try again."
         );
+
         return;
       }
 
-      // Trigger native biometric authentication
-      const result =
-        await LocalAuthentication.authenticateAsync({
-          promptMessage: "Sign in to PayXpress",
-          cancelLabel: "Cancel",
-          disableDeviceFallback: true,
-        });
+      /*
+       * TODO:
+       * Restore the authenticated PayXpress session.
+       *
+       * Once the backend refresh-token endpoint is available:
+       * 1. Retrieve the protected biometric credential.
+       * 2. Call the refresh-token API.
+       * 3. Save the returned session using authSession.
+       * 4. Restore the authenticated user profile.
+       * 5. Update useAuthStore.
+       * 6. Navigate to /(tabs).
+       *
+       * Local biometric verification alone does not
+       * authenticate the customer with the backend.
+       */
 
-      if (result.success) {
-        /*
-         * TODO:
-         * Restore the existing authenticated session
-         * using the securely stored refresh token.
-         *
-         * Face ID verification alone does not authenticate
-         * the user with the PayXpress backend.
-         */
-
-        Alert.alert(
-          "Face ID verified",
-          "Connect session restoration to complete biometric sign-in."
-        );
-      }
+      Alert.alert(
+        "Face ID verified",
+        "Your device identity has been verified. Complete account sign-in will be available once session restoration is connected."
+      );
     } catch (error) {
       console.error("Biometric authentication error:", error);
 
@@ -124,6 +108,8 @@ export default function LoginScreen() {
         "Authentication error",
         "Unable to complete biometric authentication. Please try again."
       );
+    } finally {
+      setIsBiometricLoading(false);
     }
   };
 
@@ -253,10 +239,11 @@ export default function LoginScreen() {
               />
             </View>
 
+            {/* Forgot Password */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Forgot password"
-              onPress={() => { }}
+              onPress={() => {}}
               style={{
                 alignSelf: "flex-end",
                 marginTop: spacing.md,
@@ -291,7 +278,8 @@ export default function LoginScreen() {
               variant="tertiary"
               size="large"
               onPress={handleBiometricLogin}
-
+              loading={isBiometricLoading}
+              disabled={isBiometricLoading}
               style={{
                 width: "100%",
                 marginBottom: spacing.md,
