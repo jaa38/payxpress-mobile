@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -13,9 +14,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { OTPInput } from "@/components/ui/OTPInput";
-import { spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 export default function BVNConfirmationScreen() {
+  const { theme } = useTheme();
+
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
 
@@ -48,9 +52,7 @@ export default function BVNConfirmationScreen() {
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{
-          flex: 1,
-        }}
+        style={{ flex: 1 }}
       >
         <View
           style={{
@@ -66,7 +68,6 @@ export default function BVNConfirmationScreen() {
               alignItems: "center",
             }}
           >
-            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
@@ -84,17 +85,11 @@ export default function BVNConfirmationScreen() {
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.input.icon}
+                color={theme.icon.primary}
               />
             </Pressable>
 
-            {/* Header text */}
-            <View
-              style={{
-                flex: 1,
-                width: 0,
-              }}
-            >
+            <View style={{ flex: 1, width: 0 }}>
               <AppText variant="h1" color="heading">
                 BVN Confirmation
               </AppText>
@@ -113,11 +108,7 @@ export default function BVNConfirmationScreen() {
               marginTop: spacing["2xl"],
             }}
           >
-            <View
-              style={{
-                alignItems: "center",
-              }}
-            >
+            <View style={{ alignItems: "center" }}>
               <OTPInput
                 length={6}
                 value={otp}
@@ -139,9 +130,7 @@ export default function BVNConfirmationScreen() {
                   variant="bodySmall"
                   color="error"
                   align="center"
-                  style={{
-                    marginTop: spacing.sm,
-                  }}
+                  style={{ marginTop: spacing.sm }}
                 >
                   {error}
                 </AppText>
@@ -166,11 +155,7 @@ export default function BVNConfirmationScreen() {
           </View>
 
           {/* Continue */}
-          <View
-            style={{
-              paddingBottom: spacing.sm,
-            }}
-          >
+          <View style={{ paddingBottom: spacing.sm }}>
             <Button
               title="Verify"
               size="large"

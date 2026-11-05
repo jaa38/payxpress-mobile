@@ -1,12 +1,15 @@
+
 import React from "react";
 
 import {
   StyleSheet,
   View,
-  ViewProps,
+  type ViewProps,
+  type ViewStyle,
 } from "react-native";
 
-import { radius, spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { radius, spacing } from "@/theme";
 
 export type CardVariant =
   | "default"
@@ -19,33 +22,33 @@ export type CardVariant =
 
 interface CardProps extends ViewProps {
   variant?: CardVariant;
-
   fullWidth?: boolean;
-
   children: React.ReactNode;
 }
 
 export function Card({
   variant = "default",
-
   fullWidth = true,
-
   children,
-
   style,
-
   ...props
 }: CardProps) {
+  const { theme } = useTheme();
+
+  const cardTheme = theme.card[variant];
+
+  const variantStyle: ViewStyle = {
+    backgroundColor: cardTheme.background,
+    borderColor: cardTheme.border,
+  };
+
   return (
     <View
       {...props}
       style={[
         styles.card,
-
-        variantStyles[variant],
-
+        variantStyle,
         fullWidth ? styles.fullWidth : styles.autoWidth,
-
         style,
       ]}
     >
@@ -54,58 +57,11 @@ export function Card({
   );
 }
 
-const variantStyles = {
-  default: {
-    backgroundColor: theme.card.default.background,
-
-    borderColor: theme.card.default.border,
-  },
-
-  active: {
-    backgroundColor: theme.card.active.background,
-
-    borderColor: theme.card.active.border,
-  },
-
-  success: {
-    backgroundColor: theme.card.success.background,
-
-    borderColor: theme.card.success.border,
-  },
-
-  error: {
-    backgroundColor: theme.card.error.background,
-
-    borderColor: theme.card.error.border,
-  },
-
-  warning: {
-    backgroundColor: theme.card.warning.background,
-
-    borderColor: theme.card.warning.border,
-  },
-
-  info: {
-    backgroundColor: theme.card.info.background,
-
-    borderColor: theme.card.info.border,
-  },
-
-  disabled: {
-    backgroundColor: theme.card.disabled.background,
-
-    borderColor: theme.card.disabled.border,
-  },
-} as const;
-
 const styles = StyleSheet.create({
   card: {
     paddingHorizontal: spacing.md,
-
     paddingVertical: spacing.md,
-
     borderWidth: 1,
-
     borderRadius: radius.md,
   },
 

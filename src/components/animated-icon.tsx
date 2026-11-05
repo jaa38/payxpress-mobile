@@ -1,22 +1,25 @@
+
 import { Image } from "expo-image";
 import * as SplashScreen from "expo-splash-screen";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
+import { useAuthStore } from "@/store/auth-store";
 import { colors } from "@/theme/colors";
 
 const INITIAL_SCALE_FACTOR = Dimensions.get("screen").height / 90;
-const DURATION = 2500;
+const DURATION = 5000;
 
 export function AnimatedSplashOverlay() {
+  const isHydrating = useAuthStore((state) => state.isHydrating);
+
   const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
 
-  if (!visible) {
-    return null;
-  }
+  const hasStartedHidingNativeSplash = useRef(false);
 
   const splashKeyframe = new Keyframe({
     0: {
@@ -36,6 +39,32 @@ export function AnimatedSplashOverlay() {
       easing: Easing.elastic(0.7),
     },
   });
+
+  useEffect(() => {
+    if (!isHydrating && nativeSplashHidden) {
+      setAnimate(true);
+    }
+  }, [isHydrating, nativeSplashHidden]);
+
+  const handleOverlayLayout = () => {
+    if (hasStartedHidingNativeSplash.current) {
+      return;
+    }
+
+    hasStartedHidingNativeSplash.current = true;
+
+    void SplashScreen.hideAsync()
+      .catch(() => {
+        // Avoid an unhandled rejection if native splash dismissal fails.
+      })
+      .finally(() => {
+        setNativeSplashHidden(true);
+      });
+  };
+
+  if (!visible) {
+    return null;
+  }
 
   const logo = (
     <View style={styles.logoContainer}>
@@ -62,11 +91,7 @@ export function AnimatedSplashOverlay() {
     </Animated.View>
   ) : (
     <View
-      onLayout={() => {
-        SplashScreen.hideAsync().finally(() => {
-          setAnimate(true);
-        });
-      }}
+      onLayout={handleOverlayLayout}
       style={styles.splashOverlay}
     >
       {logo}

@@ -19,11 +19,11 @@ export default function AppTabs() {
 
       <TabList asChild>
         <CustomTabList>
-          <TabTrigger name="home" href="/(tabs)" asChild>
+          <TabTrigger name="index" href="/(tabs)" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
 
-          <TabTrigger name="wallet" href="/(tabs)/pay-bills" asChild>
+          <TabTrigger name="pay-bills" href="/(tabs)/pay-bills" asChild>
             <TabButton>Pay Bills</TabButton>
           </TabTrigger>
 
@@ -31,7 +31,7 @@ export default function AppTabs() {
             <TabButton>Transactions</TabButton>
           </TabTrigger>
 
-          <TabTrigger name="more" href="/(tabs)/account" asChild>
+          <TabTrigger name="account" href="/(tabs)/account" asChild>
             <TabButton>Account</TabButton>
           </TabTrigger>
         </CustomTabList>

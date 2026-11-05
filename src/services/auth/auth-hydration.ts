@@ -1,3 +1,4 @@
+
 import { authSession } from "@/services/auth/auth-session";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -11,12 +12,16 @@ export async function hydrateAuth(): Promise<void> {
     }
 
     /*
-     * At this stage we only know that a valid-looking local
-     * session exists.
+     * A local session exists, but we haven't confirmed
+     * whether the access token is still valid.
      *
-     * The authenticated user profile will be restored from
-     * the API once the authentication endpoints are available.
+     * Session restoration will be implemented once the
+     * backend refresh-token and user-profile contracts
+     * have been confirmed.
      */
+  } catch (error) {
+    // Fail safely: treat an unreadable session as unauthenticated.
+    useAuthStore.getState().clearAuth();
   } finally {
     useAuthStore.getState().setHydrating(false);
   }

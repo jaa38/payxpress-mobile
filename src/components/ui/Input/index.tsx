@@ -1,55 +1,31 @@
-import {
-  forwardRef,
-  useState,
-} from "react";
 
 import type { ReactNode } from "react";
-
+import { forwardRef, useState } from "react";
 import {
   StyleSheet,
   TextInput,
-  TextInputProps,
+  type TextInputProps,
   View,
 } from "react-native";
 
 import { AppText } from "@/components/ui/AppText";
+import { useTheme } from "@/hooks/use-theme";
+import { radius, spacing, typography } from "@/theme";
 
-import {
-  radius,
-  spacing,
-  theme,
-  typography,
-} from "@/theme";
+type InputVariant = "default" | "textarea";
 
-type InputVariant =
-  | "default"
-  | "textarea";
-
-type InputState =
-  | "default"
-  | "focus"
-  | "error"
-  | "disabled";
+type InputState = "default" | "focus" | "error" | "disabled";
 
 interface InputProps extends TextInputProps {
   label?: string;
-
   required?: boolean;
-
   optional?: boolean;
-
   variant?: InputVariant;
-
   maxLength?: number;
-
   error?: string;
-
   helperText?: string;
-
   leftElement?: ReactNode;
-
   rightElement?: ReactNode;
-
   rightIcon?: ReactNode;
 }
 
@@ -57,41 +33,26 @@ export const Input = forwardRef<TextInput, InputProps>(
   function Input(
     {
       label,
-
       required = false,
-
       variant = "default",
-
       optional = false,
-
       maxLength,
-
       error,
-
       helperText,
-
       leftElement,
-
       rightElement,
-
       rightIcon,
-
       editable = true,
-
       onFocus,
-
       onBlur,
-
       style,
-
       placeholder,
-
       value,
-
       ...props
     },
-    ref
+    ref,
   ) {
+    const { theme } = useTheme();
     const [focused, setFocused] = useState(false);
 
     const state: InputState = !editable
@@ -113,18 +74,12 @@ export const Input = forwardRef<TextInput, InputProps>(
         {label && (
           <View style={styles.labelContainer}>
             <View style={styles.labelRow}>
-              <AppText
-                variant="caption"
-                color="secondary"
-              >
+              <AppText variant="caption" color="secondary">
                 {label}
               </AppText>
 
               {required && (
-                <AppText
-                  variant="caption"
-                  color="error"
-                >
+                <AppText variant="caption" color="error">
                   {" *"}
                 </AppText>
               )}
@@ -141,10 +96,7 @@ export const Input = forwardRef<TextInput, InputProps>(
             </View>
 
             {maxLength !== undefined && (
-              <AppText
-                variant="caption"
-                color="secondary"
-              >
+              <AppText variant="caption" color="secondary">
                 {characterCount}/{maxLength}
               </AppText>
             )}
@@ -154,66 +106,41 @@ export const Input = forwardRef<TextInput, InputProps>(
         <View
           style={[
             styles.inputContainer,
-
-            variant === "textarea" &&
-              styles.textareaContainer,
-
-            getInputStateStyle(state),
+            variant === "textarea" && styles.textareaContainer,
+            getInputStateStyle(state, theme),
           ]}
         >
           {leftElement}
 
           <TextInput
             ref={ref}
-
             {...props}
-
             value={value}
-
             maxLength={maxLength}
-
             multiline={variant === "textarea"}
-
-            textAlignVertical={
-              variant === "textarea"
-                ? "top"
-                : "center"
-            }
-
+            textAlignVertical={variant === "textarea" ? "top" : "center"}
             editable={editable}
-
             placeholder={placeholder}
-
-            placeholderTextColor={
-              theme.input.placeholder
-            }
-
+            placeholderTextColor={theme.input.placeholder}
             accessibilityLabel={label}
-
             accessibilityHint={accessibilityHint}
-
             accessibilityState={{
               disabled: !editable,
             }}
-
             style={[
               styles.input,
-
-              variant === "textarea" &&
-                styles.textareaInput,
-
+              {
+                color: theme.input.text,
+              },
+              variant === "textarea" && styles.textareaInput,
               style,
             ]}
-
             onFocus={(event) => {
               setFocused(true);
-
               onFocus?.(event);
             }}
-
             onBlur={(event) => {
               setFocused(false);
-
               onBlur?.(event);
             }}
           />
@@ -221,9 +148,7 @@ export const Input = forwardRef<TextInput, InputProps>(
           {rightElement}
 
           {rightIcon && (
-            <View style={styles.iconContainer}>
-              {rightIcon}
-            </View>
+            <View style={styles.iconContainer}>{rightIcon}</View>
           )}
         </View>
 
@@ -238,10 +163,7 @@ export const Input = forwardRef<TextInput, InputProps>(
                 {error}
               </AppText>
             ) : (
-              <AppText
-                variant="caption"
-                color="secondary"
-              >
+              <AppText variant="caption" color="secondary">
                 {helperText}
               </AppText>
             )}
@@ -249,46 +171,39 @@ export const Input = forwardRef<TextInput, InputProps>(
         )}
       </View>
     );
-  }
+  },
 );
 
 Input.displayName = "Input";
 
 function getInputStateStyle(
-  state: InputState
+  state: InputState,
+  theme: ReturnType<typeof useTheme>["theme"],
 ) {
   switch (state) {
     case "focus":
       return {
         borderColor: theme.input.focusBorder,
-
-        backgroundColor:
-          theme.input.background,
+        backgroundColor: theme.input.background,
       };
 
     case "error":
       return {
         borderColor: theme.input.errorBorder,
-
-        backgroundColor:
-          theme.input.background,
+        backgroundColor: theme.input.background,
       };
 
     case "disabled":
       return {
         borderColor: theme.input.border,
-
-        backgroundColor:
-          theme.input.disabledBackground,
+        backgroundColor: theme.input.disabledBackground,
       };
 
     case "default":
     default:
       return {
         borderColor: theme.input.border,
-
-        backgroundColor:
-          theme.input.background,
+        backgroundColor: theme.input.background,
       };
   }
 }
@@ -300,17 +215,13 @@ const styles = StyleSheet.create({
 
   labelContainer: {
     flexDirection: "row",
-
     justifyContent: "space-between",
-
     alignItems: "center",
-
     marginBottom: spacing.xs,
   },
 
   labelRow: {
     flexDirection: "row",
-
     alignItems: "center",
   },
 
@@ -320,41 +231,28 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     height: 48,
-
     borderWidth: 1,
-
     borderRadius: radius.md,
-
     flexDirection: "row",
-
     alignItems: "center",
   },
 
   textareaContainer: {
     height: 120,
-
     alignItems: "flex-start",
   },
 
   input: {
     flex: 1,
-
     minWidth: 0,
-
     height: "100%",
-
     paddingHorizontal: spacing.md,
-
-    color: theme.input.text,
-
     ...typography.body,
   },
 
   textareaInput: {
     flex: 1,
-
     paddingTop: spacing.md,
-
     paddingBottom: spacing.md,
   },
 

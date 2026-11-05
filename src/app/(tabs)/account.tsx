@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Modal,
   Pressable,
   ScrollView,
   View,
@@ -12,10 +13,12 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
+import { useTheme } from "@/hooks/use-theme";
 import { authService } from "@/services/auth/auth-service";
 import { biometricAuth } from "@/services/auth/biometric-auth";
 import { useAuthStore } from "@/store/auth-store";
-import { colors, spacing, theme } from "@/theme";
+import { spacing } from "@/theme";
+import type { ThemeMode } from "@/theme/theme";
 
 interface AccountRowProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -26,6 +29,32 @@ interface AccountRowProps {
   showChevron?: boolean;
 }
 
+const APPEARANCE_OPTIONS: {
+  value: ThemeMode;
+  label: string;
+  description: string;
+  icon: keyof typeof Ionicons.glyphMap;
+}[] = [
+    {
+      value: "system",
+      label: "System",
+      description: "Follow your device appearance settings",
+      icon: "phone-portrait-outline",
+    },
+    {
+      value: "light",
+      label: "Light",
+      description: "Always use light appearance",
+      icon: "sunny-outline",
+    },
+    {
+      value: "dark",
+      label: "Dark",
+      description: "Always use dark appearance",
+      icon: "moon-outline",
+    },
+  ];
+
 function AccountRow({
   icon,
   title,
@@ -34,6 +63,8 @@ function AccountRow({
   rightLabel,
   showChevron = true,
 }: AccountRowProps) {
+  const { theme } = useTheme();
+
   return (
     <Pressable
       accessibilityRole="button"
@@ -64,9 +95,7 @@ function AccountRow({
       </View>
 
       <View style={{ flex: 1, gap: spacing.xs }}>
-        <AppText variant="bodyBold">
-          {title}
-        </AppText>
+        <AppText variant="bodyBold">{title}</AppText>
 
         {subtitle ? (
           <AppText variant="bodySmall" color="secondary">
@@ -97,9 +126,7 @@ function SectionHeading({ title }: { title: string }) {
     <AppText
       variant="bodyBold"
       color="secondary"
-      style={{
-        marginBottom: spacing.sm,
-      }}
+      style={{ marginBottom: spacing.sm }}
     >
       {title}
     </AppText>
@@ -108,6 +135,12 @@ function SectionHeading({ title }: { title: string }) {
 
 export default function AccountScreen() {
   const user = useAuthStore((state) => state.user);
+
+  const {
+    theme,
+    themeMode,
+    setThemeMode,
+  } = useTheme();
 
   const [biometricType, setBiometricType] = useState<
     "Face ID" | "Fingerprint" | "Biometrics" | null
@@ -118,6 +151,9 @@ export default function AccountScreen() {
 
   const [isCheckingBiometrics, setIsCheckingBiometrics] =
     useState(true);
+
+  const [isAppearanceModalVisible, setIsAppearanceModalVisible] =
+    useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -202,12 +238,22 @@ export default function AccountScreen() {
     );
   };
 
+  const handleAppearanceChange = (mode: ThemeMode) => {
+    setThemeMode(mode);
+    setIsAppearanceModalVisible(false);
+  };
+
+  const selectedAppearance =
+    APPEARANCE_OPTIONS.find(
+      (option) => option.value === themeMode
+    )?.label ?? "System";
+
   return (
     <SafeAreaView
       edges={["top"]}
       style={{
         flex: 1,
-        backgroundColor: colors.neutral.white,
+        backgroundColor: theme.background.primary,
       }}
     >
       <ScrollView
@@ -217,7 +263,6 @@ export default function AccountScreen() {
           paddingBottom: spacing.xl,
         }}
       >
-        {/* Page heading */}
         <View
           style={{
             paddingTop: spacing.sm,
@@ -253,7 +298,7 @@ export default function AccountScreen() {
               width: 56,
               height: 56,
               borderRadius: 28,
-              backgroundColor: colors.neutral.white,
+              backgroundColor: theme.background.surface,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -381,9 +426,9 @@ export default function AccountScreen() {
             icon="color-palette-outline"
             title="Appearance"
             subtitle="Manage your app appearance"
-            rightLabel="System"
+            rightLabel={selectedAppearance}
             onPress={() =>
-              handleComingSoon("Appearance")
+              setIsAppearanceModalVisible(true)
             }
           />
         </View>
@@ -447,10 +492,7 @@ export default function AccountScreen() {
             color={theme.text.error}
           />
 
-          <AppText
-            variant="bodyBold"
-            color="error"
-          >
+          <AppText variant="bodyBold" color="error">
             Log out
           </AppText>
         </Pressable>
@@ -459,13 +501,179 @@ export default function AccountScreen() {
           variant="bodySmall"
           color="secondary"
           align="center"
-          style={{
-            marginTop: spacing.lg,
-          }}
+          style={{ marginTop: spacing.lg }}
         >
           PayXpress
         </AppText>
       </ScrollView>
+
+      {/* Appearance selector */}
+      <Modal
+        visible={isAppearanceModalVisible}
+        transparent
+        animationType="slide"
+        statusBarTranslucent
+        onRequestClose={() =>
+          setIsAppearanceModalVisible(false)
+        }
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            backgroundColor: theme.overlay.background,
+          }}
+        >
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Close appearance settings"
+            onPress={() =>
+              setIsAppearanceModalVisible(false)
+            }
+            style={{ flex: 1 }}
+          />
+
+          <View
+            style={{
+              backgroundColor: theme.background.surface,
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+              paddingHorizontal: spacing.lg,
+              paddingTop: spacing.lg,
+              paddingBottom: spacing.xl,
+            }}
+          >
+            <View
+              style={{
+                alignSelf: "center",
+                width: 40,
+                height: 4,
+                borderRadius: 4,
+                backgroundColor: theme.border.strong,
+                marginBottom: spacing.lg,
+              }}
+            />
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: spacing.xs,
+              }}
+            >
+              <AppText variant="h2">
+                Appearance
+              </AppText>
+
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Close"
+                onPress={() =>
+                  setIsAppearanceModalVisible(false)
+                }
+                hitSlop={12}
+              >
+                <Ionicons
+                  name="close"
+                  size={24}
+                  color={theme.text.secondary}
+                />
+              </Pressable>
+            </View>
+
+            <AppText
+              variant="bodySmall"
+              color="secondary"
+              style={{ marginBottom: spacing.lg }}
+            >
+              Choose how PayXpress looks on your device.
+            </AppText>
+
+            {APPEARANCE_OPTIONS.map((option) => {
+              const isSelected =
+                themeMode === option.value;
+
+              return (
+                <Pressable
+                  key={option.value}
+                  accessibilityRole="radio"
+                  accessibilityState={{
+                    checked: isSelected,
+                  }}
+                  accessibilityLabel={option.label}
+                  onPress={() =>
+                    handleAppearanceChange(option.value)
+                  }
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    padding: spacing.md,
+                    marginBottom: spacing.sm,
+                    borderRadius: 14,
+                    borderWidth: 1,
+                    borderColor: isSelected
+                      ? theme.border.brand
+                      : theme.border.default,
+                    backgroundColor: isSelected
+                      ? theme.background.brand
+                      : theme.background.surface,
+                    gap: spacing.md,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: 42,
+                      height: 42,
+                      borderRadius: 12,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: theme.background.subtle,
+                    }}
+                  >
+                    <Ionicons
+                      name={option.icon}
+                      size={21}
+                      color={
+                        isSelected
+                          ? theme.text.brand
+                          : theme.text.secondary
+                      }
+                    />
+                  </View>
+
+                  <View style={{ flex: 1, gap: 3 }}>
+                    <AppText variant="bodyBold">
+                      {option.label}
+                    </AppText>
+
+                    <AppText
+                      variant="bodySmall"
+                      color="secondary"
+                    >
+                      {option.description}
+                    </AppText>
+                  </View>
+
+                  {isSelected ? (
+                    <Ionicons
+                      name="checkmark-circle"
+                      size={23}
+                      color={theme.text.brand}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="ellipse-outline"
+                      size={23}
+                      color={theme.border.strong}
+                    />
+                  )}
+                </Pressable>
+              );
+            })}
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }

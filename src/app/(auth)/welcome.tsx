@@ -1,3 +1,4 @@
+
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -11,7 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
-import { colors, radius, spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { radius, spacing } from "@/theme";
 
 type OnboardingSlide = {
   id: string;
@@ -48,9 +50,9 @@ const SLIDE_DELAY = 2800;
 
 export default function WelcomeScreen() {
   const { width, height } = useWindowDimensions();
+  const { theme } = useTheme();
 
   const translateX = useRef(new Animated.Value(0)).current;
-
   const animationRef = useRef<Animated.CompositeAnimation | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -95,18 +97,15 @@ export default function WelcomeScreen() {
 
     return () => {
       mounted = false;
-
       clearTimeout(timeout);
-
       animationRef.current?.stop();
-
       translateX.stopAnimation();
     };
   }, [currentIndex, translateX, width]);
 
   useEffect(() => {
     translateX.setValue(-(currentIndex * width));
-  }, [width]);
+  }, [currentIndex, width, translateX]);
 
   return (
     <SafeAreaView
@@ -133,7 +132,9 @@ export default function WelcomeScreen() {
               height: 5,
               borderRadius: radius.full,
               backgroundColor:
-                index <= currentIndex ? colors.primary[500] : colors.gray[300],
+                index <= currentIndex
+                  ? theme.action.primary.background
+                  : theme.border.default,
             }}
           />
         ))}
@@ -170,11 +171,7 @@ export default function WelcomeScreen() {
             flexDirection: "row",
             width: width * SLIDES.length,
             height: "100%",
-            transform: [
-              {
-                translateX,
-              },
-            ],
+            transform: [{ translateX }],
           }}
         >
           {SLIDES.map((slide) => (
@@ -188,7 +185,6 @@ export default function WelcomeScreen() {
                 paddingHorizontal: spacing.xl,
               }}
             >
-              {/* Illustration */}
               <Image
                 source={slide.image}
                 resizeMode="contain"
@@ -199,7 +195,6 @@ export default function WelcomeScreen() {
                 }}
               />
 
-              {/* Slide content */}
               <View
                 style={{
                   alignItems: "center",
@@ -238,9 +233,7 @@ export default function WelcomeScreen() {
         <Button
           title="Login"
           size="large"
-          style={{
-            flex: 1,
-          }}
+          style={{ flex: 1 }}
           onPress={() => router.push("/login")}
         />
 
@@ -248,9 +241,7 @@ export default function WelcomeScreen() {
           title="Register"
           variant="tertiary"
           size="large"
-          style={{
-            flex: 1,
-          }}
+          style={{ flex: 1 }}
           onPress={() => router.push("/register")}
         />
       </View>

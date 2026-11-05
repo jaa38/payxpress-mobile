@@ -1,10 +1,14 @@
+
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppText } from "@/components/ui/AppText";
-import { spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 export default function HomeScreen() {
+  const { theme } = useTheme();
+
   const hour = new Date().getHours();
 
   const greeting =

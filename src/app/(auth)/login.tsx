@@ -14,10 +14,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { useTheme } from "@/hooks/use-theme";
 import { biometricAuth } from "@/services/auth/biometric-auth";
-import { spacing, theme } from "@/theme";
+import { spacing } from "@/theme";
 
 export default function LoginScreen() {
+  const { theme } = useTheme();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -75,7 +78,7 @@ export default function LoginScreen() {
         Alert.alert(
           "Face ID unavailable",
           result.error ||
-            "Unable to complete biometric authentication. Please try again."
+          "Unable to complete biometric authentication. Please try again.",
         );
 
         return;
@@ -99,14 +102,14 @@ export default function LoginScreen() {
 
       Alert.alert(
         "Face ID verified",
-        "Your device identity has been verified. Complete account sign-in will be available once session restoration is connected."
+        "Your device identity has been verified. Complete account sign-in will be available once session restoration is connected.",
       );
     } catch (error) {
       console.error("Biometric authentication error:", error);
 
       Alert.alert(
         "Authentication error",
-        "Unable to complete biometric authentication. Please try again."
+        "Unable to complete biometric authentication. Please try again.",
       );
     } finally {
       setIsBiometricLoading(false);
@@ -155,7 +158,7 @@ export default function LoginScreen() {
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.text.primary}
+                color={theme.icon.primary}
               />
             </Pressable>
 
@@ -232,7 +235,7 @@ export default function LoginScreen() {
                           : "eye-outline"
                       }
                       size={24}
-                      color={theme.text.secondary}
+                      color={theme.icon.secondary}
                     />
                   </Pressable>
                 }
@@ -243,7 +246,7 @@ export default function LoginScreen() {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Forgot password"
-              onPress={() => {}}
+              onPress={() => { }}
               style={{
                 alignSelf: "flex-end",
                 marginTop: spacing.md,
@@ -307,7 +310,7 @@ export default function LoginScreen() {
               }}
             >
               <AppText variant="body" color="muted">
-                Don't have an account?
+                Don't have an account?{" "}
               </AppText>
 
               <Pressable

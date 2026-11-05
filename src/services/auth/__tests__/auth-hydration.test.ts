@@ -1,5 +1,6 @@
-import { authSession } from "@/services/auth/auth-session";
+
 import { hydrateAuth } from "@/services/auth/auth-hydration";
+import { authSession } from "@/services/auth/auth-session";
 import { useAuthStore } from "@/store/auth-store";
 
 jest.mock("@/services/auth/auth-session", () => ({
@@ -33,7 +34,7 @@ describe("hydrateAuth", () => {
     expect(state.isHydrating).toBe(false);
   });
 
-  it("finishes hydration when a session exists", async () => {
+  it("finishes hydration without authenticating an unverified session", async () => {
     mockedAuthSession.getSession.mockResolvedValue({
       accessToken: "access-token",
       refreshToken: "refresh-token",
@@ -48,15 +49,17 @@ describe("hydrateAuth", () => {
     expect(state.user).toBeNull();
   });
 
-  it("finishes hydration even when session loading fails", async () => {
+  it("clears auth and finishes hydration when session loading fails", async () => {
     mockedAuthSession.getSession.mockRejectedValue(
       new Error("Secure storage unavailable"),
     );
 
-    await expect(hydrateAuth()).rejects.toThrow(
-      "Secure storage unavailable",
-    );
+    await expect(hydrateAuth()).resolves.toBeUndefined();
 
-    expect(useAuthStore.getState().isHydrating).toBe(false);
+    const state = useAuthStore.getState();
+
+    expect(state.user).toBeNull();
+    expect(state.isAuthenticated).toBe(false);
+    expect(state.isHydrating).toBe(false);
   });
 });

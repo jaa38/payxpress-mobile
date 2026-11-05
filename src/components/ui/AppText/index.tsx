@@ -1,6 +1,8 @@
-import { Text, TextProps, TextStyle } from "react-native";
 
-import { fonts, theme, typography } from "@/theme";
+import { Text, type TextProps, type TextStyle } from "react-native";
+
+import { useTheme } from "@/hooks/use-theme";
+import { fonts, typography } from "@/theme";
 
 type Variant =
   | "displayLarge"
@@ -48,6 +50,13 @@ interface AppTextProps extends TextProps {
   align?: TextStyle["textAlign"];
 }
 
+const fontFamilyByWeight: Record<string, string> = {
+  "400": fonts.regular,
+  "500": fonts.medium,
+  "600": fonts.semiBold,
+  "700": fonts.bold,
+};
+
 export function AppText({
   children,
   variant = "body",
@@ -56,15 +65,23 @@ export function AppText({
   style,
   ...props
 }: AppTextProps) {
+  const { theme } = useTheme();
+
+  const typographyStyle = typography[variant];
+  const fontWeight = typographyStyle.fontWeight ?? "400";
+
+  const fontFamily =
+    fontFamilyByWeight[String(fontWeight)] ?? fonts.regular;
+
   return (
     <Text
       {...props}
       style={[
-        typography[variant],
+        typographyStyle,
         {
           color: theme.text[color],
           textAlign: align,
-          fontFamily: fonts.primary,
+          fontFamily,
         },
         style,
       ]}

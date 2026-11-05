@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -14,9 +15,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { OTPInput } from "@/components/ui/OTPInput";
-import { spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 export default function VerifyEmailScreen() {
+  const { theme, isDark } = useTheme();
+
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
 
@@ -47,13 +51,11 @@ export default function VerifyEmailScreen() {
         backgroundColor: theme.background.surface,
       }}
     >
-      <StatusBar style="auto" />
+      <StatusBar style={isDark ? "light" : "dark"} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{
-          flex: 1,
-        }}
+        style={{ flex: 1 }}
       >
         <View
           style={{
@@ -69,7 +71,6 @@ export default function VerifyEmailScreen() {
               alignItems: "center",
             }}
           >
-            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
@@ -87,23 +88,15 @@ export default function VerifyEmailScreen() {
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.input.icon}
+                color={theme.icon.primary}
               />
             </Pressable>
 
-            {/* Header text */}
-            <View
-              style={{
-                flex: 1,
-                width: 0,
-              }}
-            >
+            <View style={{ flex: 1, width: 0 }}>
               <AppText
                 variant="h1"
                 color="heading"
-                style={{
-                  marginBottom: spacing.sm,
-                }}
+                style={{ marginBottom: spacing.sm }}
               >
                 Verify your email
               </AppText>
@@ -129,11 +122,7 @@ export default function VerifyEmailScreen() {
               marginTop: spacing["2xl"],
             }}
           >
-            <View
-              style={{
-                alignItems: "center",
-              }}
-            >
+            <View style={{ alignItems: "center" }}>
               <OTPInput
                 length={6}
                 value={otp}
@@ -155,9 +144,7 @@ export default function VerifyEmailScreen() {
                   variant="bodySmall"
                   color="error"
                   align="center"
-                  style={{
-                    marginTop: spacing.sm,
-                  }}
+                  style={{ marginTop: spacing.sm }}
                 >
                   {error}
                 </AppText>
@@ -182,11 +169,7 @@ export default function VerifyEmailScreen() {
           </View>
 
           {/* Continue */}
-          <View
-            style={{
-              paddingBottom: spacing.sm,
-            }}
-          >
+          <View style={{ paddingBottom: spacing.sm }}>
             <Button
               title="Continue"
               size="large"

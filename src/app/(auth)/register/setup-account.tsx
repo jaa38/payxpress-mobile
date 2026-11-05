@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -13,18 +14,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 export default function SetupAccountScreen() {
+  const { theme } = useTheme();
+
   const [email, setEmail] = useState("");
   const [tagName, setTagName] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [error, setError] = useState("");
 
-  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const canContinue =
-    email.trim().length > 0 && isValidEmail && tagName.trim().length > 0;
+    email.trim().length > 0 &&
+    isValidEmail &&
+    tagName.trim().length > 0;
 
   const handleContinue = () => {
     if (!email.trim()) {
@@ -60,9 +66,7 @@ export default function SetupAccountScreen() {
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{
-          flex: 1,
-        }}
+        style={{ flex: 1 }}
       >
         <View
           style={{
@@ -78,7 +82,6 @@ export default function SetupAccountScreen() {
               alignItems: "center",
             }}
           >
-            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
@@ -96,23 +99,15 @@ export default function SetupAccountScreen() {
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.input.icon}
+                color={theme.icon.primary}
               />
             </Pressable>
 
-            {/* Header text */}
-            <View
-              style={{
-                flex: 1,
-                width: 0,
-              }}
-            >
+            <View style={{ flex: 1, width: 0 }}>
               <AppText
                 variant="h1"
                 color="heading"
-                style={{
-                  marginBottom: spacing.sm,
-                }}
+                style={{ marginBottom: spacing.sm }}
               >
                 Setup your Account
               </AppText>
@@ -154,11 +149,7 @@ export default function SetupAccountScreen() {
               }}
             />
 
-            <View
-              style={{
-                marginTop: spacing.lg,
-              }}
-            >
+            <View style={{ marginTop: spacing.lg }}>
               <Input
                 label="Tag Name"
                 placeholder="Enter your tag name"
@@ -175,11 +166,7 @@ export default function SetupAccountScreen() {
               />
             </View>
 
-            <View
-              style={{
-                marginTop: spacing.lg,
-              }}
-            >
+            <View style={{ marginTop: spacing.lg }}>
               <Input
                 label="Referral Code"
                 placeholder="Enter referral code"
@@ -201,9 +188,7 @@ export default function SetupAccountScreen() {
               <AppText
                 variant="bodySmall"
                 color="error"
-                style={{
-                  marginTop: spacing.md,
-                }}
+                style={{ marginTop: spacing.md }}
               >
                 {error}
               </AppText>
@@ -211,11 +196,7 @@ export default function SetupAccountScreen() {
           </View>
 
           {/* Continue */}
-          <View
-            style={{
-              paddingBottom: spacing.sm,
-            }}
-          >
+          <View style={{ paddingBottom: spacing.sm }}>
             <Button
               title="Continue"
               size="large"

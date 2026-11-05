@@ -1,24 +1,19 @@
-import { useRef } from "react";
 
+import { useRef } from "react";
 import {
   TextInput,
   View,
-  NativeSyntheticEvent,
-  TextInputKeyPressEventData,
+  type NativeSyntheticEvent,
+  type TextInputKeyPressEventData,
 } from "react-native";
 
 import { NumberInput } from "@/components/ui/NumberInput";
-
 import { spacing } from "@/theme";
-
 
 interface OTPInputProps {
   length?: number;
-
   value?: string;
-
   onChange?: (code: string) => void;
-
   onComplete?: (code: string) => void;
 }
 
@@ -56,14 +51,9 @@ export function OTPInput({
   function handleChange(text: string, index: number) {
     const sanitizedText = text.replace(/\D/g, "");
 
-    /*
-     * Paste support
-     */
+    // Paste support
     if (sanitizedText.length > 1) {
-      const pastedDigits = sanitizedText
-        .slice(0, length)
-        .split("");
-
+      const pastedDigits = sanitizedText.slice(0, length).split("");
       const nextOtp = Array(length).fill("");
 
       pastedDigits.forEach((digit, digitIndex) => {
@@ -74,7 +64,7 @@ export function OTPInput({
 
       const lastFilledIndex = Math.min(
         pastedDigits.length,
-        length
+        length,
       ) - 1;
 
       if (lastFilledIndex >= 0) {
@@ -84,9 +74,7 @@ export function OTPInput({
       return;
     }
 
-    /*
-     * Single digit entry
-     */
+    // Single digit entry
     const nextOtp = [...otp];
 
     nextOtp[index] = sanitizedText;
@@ -100,7 +88,7 @@ export function OTPInput({
 
   function handleKeyPress(
     event: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    index: number
+    index: number,
   ) {
     const { key } = event.nativeEvent;
 

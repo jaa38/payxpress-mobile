@@ -1,6 +1,8 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -13,27 +15,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { spacing, theme } from "@/theme";
-import { useState } from "react";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 export default function RegisterScreen() {
+  const { theme, isDark } = useTheme();
+
   const [bvn, setBvn] = useState("");
   const isBvnValid = /^\d{11}$/.test(bvn);
 
   return (
     <SafeAreaView
+      edges={["top", "bottom"]}
       style={{
         flex: 1,
         backgroundColor: theme.background.surface,
       }}
     >
-      <StatusBar style="auto" />
+      <StatusBar style={isDark ? "light" : "dark"} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{
-          flex: 1,
-        }}
+        style={{ flex: 1 }}
       >
         <View
           style={{
@@ -49,7 +52,6 @@ export default function RegisterScreen() {
               alignItems: "center",
             }}
           >
-            {/* Back button */}
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Go back"
@@ -67,23 +69,15 @@ export default function RegisterScreen() {
               <Ionicons
                 name="chevron-back"
                 size={24}
-                color={theme.input.icon}
+                color={theme.icon.primary}
               />
             </Pressable>
 
-            {/* Header text */}
-            <View
-              style={{
-                flex: 1,
-                width: 0,
-              }}
-            >
+            <View style={{ flex: 1, width: 0 }}>
               <AppText
                 variant="h1"
                 color="heading"
-                style={{
-                  marginBottom: spacing.sm,
-                }}
+                style={{ marginBottom: spacing.sm }}
               >
                 ID Verification
               </AppText>
@@ -118,6 +112,7 @@ export default function RegisterScreen() {
               onChangeText={setBvn}
             />
 
+            {/* BVN assistance */}
             <View
               style={{
                 flexDirection: "row",
@@ -136,7 +131,7 @@ export default function RegisterScreen() {
                 <Ionicons
                   name="alert-circle-outline"
                   size={24}
-                  color={theme.text.primary}
+                  color={theme.icon.primary}
                 />
 
                 <AppText variant="body" color="primary">
@@ -149,10 +144,10 @@ export default function RegisterScreen() {
                 accessibilityLabel="Find your BVN"
                 hitSlop={8}
                 onPress={() => {
-                  // TODO: Add BVN assistance flow or link
+                  // TODO: Add BVN assistance flow or link.
                 }}
                 style={{
-                  backgroundColor: theme.background.brandui,
+                  backgroundColor: theme.action.primary.background,
                   borderRadius: 9999,
                   paddingHorizontal: spacing.md,
                   paddingVertical: spacing.xs,
@@ -160,12 +155,13 @@ export default function RegisterScreen() {
                   justifyContent: "center",
                 }}
               >
-                <AppText variant="body" color="brand">
+                <AppText variant="body" color="inverse">
                   Click here
                 </AppText>
               </Pressable>
             </View>
 
+            {/* Security information */}
             <View
               style={{
                 marginTop: spacing["5xl"],
@@ -177,19 +173,14 @@ export default function RegisterScreen() {
               <Ionicons
                 name="shield-checkmark"
                 size={24}
-                color={theme.text.success}
+                color={theme.icon.success}
               />
 
-              <View
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                }}
-              >
+              <View style={{ flex: 1, minWidth: 0 }}>
                 <AppText variant="body" color="primary">
                   In line with the latest regulatory requirement from the CBN,
-                  we will obtain the details attached to your BVN to verify your
-                  account. Xpress Payments will protect your information
+                  we will obtain the details attached to your BVN to verify
+                  your account. Xpress Payments will protect your information
                   security.
                 </AppText>
               </View>
@@ -197,17 +188,14 @@ export default function RegisterScreen() {
           </View>
 
           {/* Continue */}
-          <View
-            style={{
-              paddingBottom: spacing.sm,
-            }}
-          >
+          <View style={{ paddingBottom: spacing.sm }}>
             <Button
               title="Next"
               size="large"
               onPress={() => router.push("/register/bvn-confirmation")}
               disabled={!isBvnValid}
             />
+
             {/* CBN licensing */}
             <View
               style={{
