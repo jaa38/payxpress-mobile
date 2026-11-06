@@ -1,183 +1,173 @@
 # PayXpress Mobile
 
-A modern React Native fintech application for payments, wallet management, transfers, bill payments, and value-added services.
+PayXpress Mobile is a React Native application built with Expo and TypeScript. It is intended to bring wallet services, payments, transfers, bill payments and value-added services into one mobile experience.
 
-PayXpress is being developed as a multi-service financial platform designed to make everyday financial and utility transactions easier, faster, and more accessible from a single application.
+## Project status
 
----
+The project is progressing through its 12-sprint delivery plan. The current work has established much of the mobile foundation, including navigation, shared UI components, theme tokens, API clients, state management, local storage and automated tests.
 
-## Product Vision
+**Sprint 01 — Foundation and mobile architecture: foundation implemented; final acceptance checks and documentation are being closed out.**
 
-PayXpress aims to provide users with a convenient platform for managing everyday financial and value-added services.
+Implemented foundation:
+- Expo, React Native and strict TypeScript setup.
+- Expo Router route structure, including welcome, login, registration and tab routes.
+- Root entry routing and authentication-aware route guards.
+- Shared UI components and semantic light/dark theme tokens.
+- Environment parsing and central API URL configuration.
+- Axios clients and request/response interceptors.
+- TanStack Query and Zustand state management.
+- SecureStore, MMKV and SQLite storage foundations.
+- Application providers, font loading and auth bootstrap.
+- Jest and React Native Testing Library test infrastructure.
 
-The broader product vision includes:
+Items that should not be treated as complete yet:
+- Backend authentication integration and reliable session restoration depend on confirmed API contracts and belong to the authentication delivery work.
+- Environment names are supported, but the current configured API URLs are shared defaults unless environment-specific values are supplied.
+- The Android native project/build has not been verified in the current working tree; only the `ios/` directory is present.
+- The architecture and setup documentation are being completed.
 
-- Digital wallet management
-- Wallet-to-wallet transfers
-- Airtime and data purchases
-- Electricity bill payments
-- Cable TV subscriptions
-- Government payments
-- Insurance services
-- Pension services
-- Educational payments
-- Ticket booking
-- Beneficiary management
-- Transaction history
-- Automated payments and reminders
-- User profiles and customization
-- Real-time notifications
-- Multilingual support
-- Loyalty and rewards
-- Referral rewards
-- Secure identity verification
-- Fraud prevention and transaction security
-- Customer support
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for implementation details and known limitations.
 
-The product is intended to support multiple platforms, including mobile applications, web portals, and USSD.
+## Technology stack
 
----
+| Area | Technology |
+|---|---|
+| Mobile framework | React Native 0.86, Expo SDK 57 |
+| Language | TypeScript 6 |
+| Navigation | Expo Router |
+| Server state | TanStack Query |
+| Client state | Zustand |
+| HTTP | Axios |
+| Forms and validation | React Hook Form, Zod, `@hookform/resolvers` |
+| Secure storage | Expo SecureStore |
+| Local key-value storage | React Native MMKV |
+| Local database | Expo SQLite |
+| Device authentication | Expo Local Authentication |
+| UI and animation | React Native, Expo UI, Reanimated |
+| Testing | Jest Expo, React Native Testing Library, React Test Renderer |
 
-## Project Status
+Versions are maintained in `package.json`.
 
-### Sprint 1 — Foundation & Architecture
-
-**Status: Complete**
-
-Sprint 1 establishes the technical foundation required to build PayXpress as a scalable React Native application.
-
-### Completed
-
-- React Native + Expo foundation
-- TypeScript with strict mode
-- Expo Router navigation
-- Feature-oriented project structure
-- Environment configuration
-- Centralized Axios API client
-- TanStack Query configuration
-- Zustand application state
-- Expo SecureStore integration
-- MMKV storage integration
-- SQLite database foundation
-- Design system foundations
-- Reusable UI components
-- Global application providers
-- Centralized error handling
-- Development logging
-- Jest testing foundation
-- iOS native build verification
-- Android native build verification
-- TypeScript validation
-- Expo Doctor validation
-- GitHub repository and main branch
-- Sprint 1 Git checkpoint
-
----
-
-## Tech Stack
-
-### Core
-
-- React Native
-- Expo
-- TypeScript
-- Expo Router
-
-### State & Data
-
-- TanStack Query
-- Zustand
-- Axios
-
-### Forms & Validation
-
-- React Hook Form
-- Zod
-- `@hookform/resolvers`
-
-### Storage
-
-- Expo SecureStore
-- React Native MMKV
-- Expo SQLite
-
-### Authentication & Device Security
-
-- Expo LocalAuthentication
-- Secure device storage
-- Biometric authentication foundation
-
-### Testing
-
-- Jest
-- Jest Expo
-- React Native Testing Library
-- React Test Renderer
-
----
-
-## Architecture
-
-PayXpress follows a feature-oriented React Native architecture.
+## Project structure
 
 ```text
 src/
-├── app/
-│   ├── _layout.tsx
-│   └── (tabs)/
-│       ├── _layout.tsx
-│       ├── index.tsx
-│       ├── transactions.tsx
-│       ├── wallet.tsx
-│       └── more.tsx
-│
+├── app/                 # Expo Router routes and route-level tests
+│   ├── (auth)/          # Welcome, login and registration routes
+│   ├── (tabs)/          # Main tab routes
+│   └── index.tsx        # Auth-aware root redirect
 ├── components/
-│   ├── ui/
-│   │   ├── AppText/
-│   │   ├── Button/
-│   │   ├── Card/
-│   │   └── Input/
-│   └── ...
-│
-├── config/
-│   └── env.ts
-│
-├── constants/
-│   └── storage.ts
-│
-├── features/
-│   └── ...
-│
-├── hooks/
-│   └── ...
-│
-├── i18n/
-│   └── ...
-│
-├── lib/
-│   ├── http-client.ts
-│   └── query-client.ts
-│
-├── providers/
-│   └── AppProviders.tsx
-│
+│   ├── auth/            # Authentication-specific components
+│   └── ui/              # Reusable UI components
+├── config/              # Environment and API configuration
+├── constants/           # Application constants
+├── hooks/               # Shared React hooks
+├── lib/                 # HTTP clients and query client
+│   └── http/
+├── providers/           # Application and auth bootstrap providers
 ├── services/
-│   ├── api/
-│   └── storage/
-│       ├── secure-storage.ts
-│       ├── mmkv-storage.ts
-│       └── database.ts
-│
-├── store/
-│   └── app-store.ts
-│
-├── theme/
-│   ├── colors.ts
-│   └── theme.ts
-│
-├── types/
-│   └── ...
-│
-└── utils/
-    ├── errors/
-    └── logger/
+│   ├── api/             # API service exports
+│   ├── auth/            # Authentication/session services
+│   ├── collection/      # Collection API services
+│   ├── payments/        # Payment API and payment session
+│   └── storage/         # SecureStore, MMKV and SQLite
+├── store/               # Zustand stores
+├── theme/               # Semantic colours, typography and tokens
+├── types/               # Shared TypeScript types
+└── utils/               # Errors and logging utilities
+
+docs/
+├── API_COLLECTION.md    # Existing API endpoint inventory
+└── ARCHITECTURE.md      # Application architecture and implementation notes
+```
+
+## Getting started
+
+### Prerequisites
+
+- Node.js version compatible with the installed Expo SDK.
+- npm.
+- Xcode and iOS Simulator for local iOS builds.
+- Android Studio and Android SDK for Android builds.
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Configure environment
+
+Create a local `.env` file in the project root. Do not commit `.env` or other files containing local credentials.
+
+Supported variables:
+
+```dotenv
+EXPO_PUBLIC_ENVIRONMENT=development
+
+EXPO_PUBLIC_CORE_API_URL=
+EXPO_PUBLIC_API_URL=
+EXPO_PUBLIC_PAYMENT_API_URL=
+EXPO_PUBLIC_COLLECTION_API_URL=
+EXPO_PUBLIC_COLLECTION_STAGING_API_URL=
+```
+
+The application validates environment configuration with Zod. If a variable is omitted, the current legacy default URL is used. `EXPO_PUBLIC_API_URL` is retained as a backward-compatible fallback for the core API URL.
+
+**Important:** Expo public environment variables are bundled into the client application. They must never contain secrets, private API keys or credentials. Environment selection currently exists, but separate backend URLs must be supplied and confirmed for each environment.
+
+### Start the development server
+
+```bash
+npx expo start
+```
+
+### Run native platforms
+
+```bash
+npm run ios
+npm run android
+```
+
+The Android command requires a configured Android native project and local Android development environment. Confirm the native project/build before treating Android as verified.
+
+### Run the web target
+
+```bash
+npm run web
+```
+
+## Quality checks
+
+```bash
+npx tsc --noEmit
+npm run lint
+npm test -- --runInBand
+npm run test:coverage
+npx expo-doctor
+```
+
+The latest recorded full test run in the project notes was **47 test suites and 557 tests passing**. The recorded coverage at that point was:
+- Statements: 82.13%
+- Branches: 76.28%
+- Functions: 84.58%
+- Lines: 82.59%
+
+These figures are a historical checkpoint, not a guarantee that the current working tree has been re-tested. Re-run the commands above after changes.
+
+## Development principles
+
+- Keep route components in `src/app` and reusable UI in `src/components`.
+- Keep network access behind the configured API clients and service modules.
+- Use semantic theme tokens rather than hard-coded component colours.
+- Keep access tokens and other sensitive session material in secure storage, not MMKV or plain-text application state.
+- Keep environment-specific configuration outside source changes and never commit local `.env` files.
+- Do not assume backend request/response shapes. Confirm API contracts before implementing authentication or payment behaviour.
+
+## Related documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [API collection inventory](docs/API_COLLECTION.md)
+- [Sprint plan](../Sprint-Plan.txt) — if maintained alongside this repository.
+
+Sprint 2 begins
