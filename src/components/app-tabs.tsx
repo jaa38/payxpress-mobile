@@ -1,25 +1,22 @@
-import { NativeTabs } from "expo-router/unstable-native-tabs";
-import { useColorScheme } from "react-native";
 
-import { Colors } from "@/constants/theme";
-import { colors as appColors } from "@/theme/colors";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
+
+import { useTheme } from "@/hooks/use-theme";
 
 export default function AppTabs() {
-  const scheme = useColorScheme();
-
-  const colors = Colors[scheme === "unspecified" ? "light" : scheme];
+  const { theme } = useTheme();
 
   return (
     <NativeTabs
-      backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      tintColor={appColors.primary[500]}
+      backgroundColor={theme.navigation.background}
+      indicatorColor={theme.action.primary.background}
+      tintColor={theme.action.primary.background}
       labelStyle={{
         default: {
-          color: appColors.gray[500],
+          color: theme.text.secondary,
         },
         selected: {
-          color: appColors.primary[500],
+          color: theme.action.primary.background,
         },
       }}
     >

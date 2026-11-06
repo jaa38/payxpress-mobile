@@ -4,7 +4,8 @@ import { Modal, Pressable, View } from "react-native";
 
 import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
-import { spacing, theme } from "@/theme";
+import { useTheme } from "@/hooks/use-theme";
+import { spacing } from "@/theme";
 
 interface BiometricEnrollmentPromptProps {
     visible: boolean;
@@ -21,6 +22,8 @@ export function BiometricEnrollmentPrompt({
     onEnable,
     onSkip,
 }: BiometricEnrollmentPromptProps) {
+    const { theme } = useTheme();
+
     return (
         <Modal
             visible={visible}
@@ -34,7 +37,7 @@ export function BiometricEnrollmentPrompt({
                     flex: 1,
                     justifyContent: "center",
                     paddingHorizontal: spacing.lg,
-                    backgroundColor: "rgba(0,0,0,0.5)",
+                    backgroundColor: theme.overlay.background,
                 }}
             >
                 <View
@@ -59,7 +62,7 @@ export function BiometricEnrollmentPrompt({
                         <Ionicons
                             name="scan-outline"
                             size={42}
-                            color={theme.text.primary}
+                            color={theme.icon.primary}
                         />
                     </View>
 
@@ -99,7 +102,7 @@ export function BiometricEnrollmentPrompt({
                         <Ionicons
                             name="shield-checkmark-outline"
                             size={22}
-                            color={theme.text.primary}
+                            color={theme.icon.success}
                         />
 
                         <View style={{ flex: 1 }}>

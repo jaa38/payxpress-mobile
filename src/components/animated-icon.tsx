@@ -90,10 +90,7 @@ export function AnimatedSplashOverlay() {
       {logo}
     </Animated.View>
   ) : (
-    <View
-      onLayout={handleOverlayLayout}
-      style={styles.splashOverlay}
-    >
+    <View onLayout={handleOverlayLayout} style={styles.splashOverlay}>
       {logo}
     </View>
   );

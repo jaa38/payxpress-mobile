@@ -1,3 +1,4 @@
+
 import {
   TabList,
   TabListProps,
@@ -6,11 +7,11 @@ import {
   TabTrigger,
   TabTriggerSlotProps,
 } from "expo-router/ui";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { AppText } from "@/components/ui/AppText";
-import { Colors, MaxContentWidth, Spacing } from "@/constants/theme";
-import { theme } from "@/theme";
+import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function AppTabs() {
   return (
@@ -45,15 +46,43 @@ export function TabButton({
   isFocused,
   ...props
 }: TabTriggerSlotProps) {
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    tabButton: {
+      borderRadius: Spacing.three,
+    },
+    tabButtonView: {
+      paddingVertical: Spacing.one,
+      paddingHorizontal: Spacing.three,
+      borderRadius: Spacing.three,
+    },
+    tabButtonViewFocused: {
+      backgroundColor: theme.action.primary.background,
+    },
+    pressed: {
+      opacity: 0.7,
+    },
+  });
+
   return (
     <Pressable
       {...props}
-      style={({ pressed }) => [styles.tabButton, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.tabButton,
+        pressed && styles.pressed,
+      ]}
     >
       <View
-        style={[styles.tabButtonView, isFocused && styles.tabButtonViewFocused]}
+        style={[
+          styles.tabButtonView,
+          isFocused && styles.tabButtonViewFocused,
+        ]}
       >
-        <AppText variant="label" color={isFocused ? "brand" : "secondary"}>
+        <AppText
+          variant="label"
+          color={isFocused ? "inverse" : "secondary"}
+        >
           {children}
         </AppText>
       </View>
@@ -62,13 +91,47 @@ export function TabButton({
 }
 
 export function CustomTabList(props: TabListProps) {
-  const scheme = useColorScheme();
-  const colors = Colors[scheme === "unspecified" ? "light" : scheme];
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    tabListContainer: {
+      position: "absolute",
+      width: "100%",
+      bottom: 0,
+      padding: Spacing.three,
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    innerContainer: {
+      paddingVertical: Spacing.two,
+      paddingHorizontal: Spacing.five,
+      borderRadius: Spacing.five,
+      flexDirection: "row",
+      alignItems: "center",
+      flexGrow: 1,
+      gap: Spacing.two,
+      maxWidth: MaxContentWidth,
+      backgroundColor: theme.navigation.background,
+      borderWidth: 1,
+      borderColor: theme.navigation.border,
+    },
+    brandText: {
+      marginRight: Spacing.three,
+    },
+    spacer: {
+      flex: 1,
+    },
+  });
 
   return (
     <View {...props} style={styles.tabListContainer}>
       <View style={styles.innerContainer}>
-        <AppText variant="bodyBold" color="brand" style={styles.brandText}>
+        <AppText
+          variant="bodyBold"
+          color="brand"
+          style={styles.brandText}
+        >
           PayXpress
         </AppText>
 
@@ -77,61 +140,9 @@ export function CustomTabList(props: TabListProps) {
         <View style={styles.spacer} />
 
         <AppText variant="caption" color="secondary">
-          {colors.text ? "Payments made simple" : ""}
+          Payments made simple
         </AppText>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  tabListContainer: {
-    position: "absolute",
-    width: "100%",
-    bottom: 0,
-    padding: Spacing.three,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-
-  innerContainer: {
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.five,
-    borderRadius: Spacing.five,
-    flexDirection: "row",
-    alignItems: "center",
-    flexGrow: 1,
-    gap: Spacing.two,
-    maxWidth: MaxContentWidth,
-    backgroundColor: theme.background.surface,
-    borderWidth: 1,
-    borderColor: theme.border.default,
-  },
-
-  brandText: {
-    marginRight: Spacing.three,
-  },
-
-  spacer: {
-    flex: 1,
-  },
-
-  tabButton: {
-    borderRadius: Spacing.three,
-  },
-
-  tabButtonView: {
-    paddingVertical: Spacing.one,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Spacing.three,
-  },
-
-  tabButtonViewFocused: {
-    backgroundColor: theme.background.brand,
-  },
-
-  pressed: {
-    opacity: 0.7,
-  },
-});
