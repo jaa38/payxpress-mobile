@@ -131,4 +131,45 @@ describe("authApi", () => {
         );
     });
 
+    it("verifies BVN OTP", async () => {
+        const payload = { otp: "123456" };
+
+        mockedPost.mockResolvedValueOnce({ data: { success: true } } as never);
+
+        const result = await authApi.verifyBvnOtp(payload);
+
+        expect(mockedPost).toHaveBeenCalledWith(
+            "/Auth/verify-otp/bvn",
+            payload,
+        );
+
+        expect(result).toEqual({ success: true });
+    });
+
+    it("verifies OTP without requiring authentication by default", async () => {
+        const payload = { otp: "123456" };
+
+        mockedPost.mockResolvedValueOnce({ data: { success: true } } as never);
+
+        await authApi.verifyOtp(payload);
+
+        expect(mockedPost).toHaveBeenCalledWith(
+            "/Auth/verify-otp",
+            payload,
+            { requiresAuth: false },
+        );
+    });
+
+    it("requests password recovery using an encoded email address", async () => {
+        mockedPost.mockResolvedValueOnce({ data: { success: true } } as never);
+
+        const result = await authApi.forgotPassword("test@example.com");
+
+        expect(mockedPost).toHaveBeenCalledWith(
+            "/Auth/forgot-password/test%40example.com",
+        );
+
+        expect(result).toEqual({ success: true });
+    });
+
 });

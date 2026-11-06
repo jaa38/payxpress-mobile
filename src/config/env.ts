@@ -1,7 +1,13 @@
-
 import { z } from "zod";
 
-const DEFAULTS = {
+/**
+ * Current API endpoints.
+ *
+ * These are the existing endpoints from the legacy API configuration.
+ * They are shared across app environments until separate backend URLs
+ * are provided.
+ */
+const DEFAULT_API_URLS = {
   coreApiUrl: "https://payxpress.com:3000/api",
   paymentApiUrl: "https://myxpresspay.com:7000/api",
   collectionApiUrl: "https://80.88.8.239:5000/api",
@@ -24,14 +30,16 @@ const environmentSchema = z.enum([
 const envSchema = z.object({
   environment: environmentSchema.default("development"),
 
-  coreApiUrl: urlSchema.default(DEFAULTS.coreApiUrl),
+  coreApiUrl: urlSchema.default(DEFAULT_API_URLS.coreApiUrl),
 
-  paymentApiUrl: urlSchema.default(DEFAULTS.paymentApiUrl),
+  paymentApiUrl: urlSchema.default(DEFAULT_API_URLS.paymentApiUrl),
 
-  collectionApiUrl: urlSchema.default(DEFAULTS.collectionApiUrl),
+  collectionApiUrl: urlSchema.default(
+    DEFAULT_API_URLS.collectionApiUrl,
+  ),
 
   collectionStagingApiUrl: urlSchema.default(
-    DEFAULTS.collectionStagingApiUrl,
+    DEFAULT_API_URLS.collectionStagingApiUrl,
   ),
 });
 
@@ -41,19 +49,19 @@ const parsedEnv = envSchema.safeParse({
   coreApiUrl:
     process.env.EXPO_PUBLIC_CORE_API_URL ??
     process.env.EXPO_PUBLIC_API_URL ??
-    DEFAULTS.coreApiUrl,
+    DEFAULT_API_URLS.coreApiUrl,
 
   paymentApiUrl:
     process.env.EXPO_PUBLIC_PAYMENT_API_URL ??
-    DEFAULTS.paymentApiUrl,
+    DEFAULT_API_URLS.paymentApiUrl,
 
   collectionApiUrl:
     process.env.EXPO_PUBLIC_COLLECTION_API_URL ??
-    DEFAULTS.collectionApiUrl,
+    DEFAULT_API_URLS.collectionApiUrl,
 
   collectionStagingApiUrl:
     process.env.EXPO_PUBLIC_COLLECTION_STAGING_API_URL ??
-    DEFAULTS.collectionStagingApiUrl,
+    DEFAULT_API_URLS.collectionStagingApiUrl,
 });
 
 if (!parsedEnv.success) {

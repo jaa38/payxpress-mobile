@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+
 import { AppText } from "@/components/ui/AppText";
 import { useTheme } from "@/hooks/use-theme";
 import { authService } from "@/services/auth/auth-service";
@@ -19,6 +20,8 @@ import { biometricAuth } from "@/services/auth/biometric-auth";
 import { useAuthStore } from "@/store/auth-store";
 import { spacing } from "@/theme";
 import type { ThemeMode } from "@/theme/theme";
+
+import { logger } from "@/utils/logger";
 
 interface AccountRowProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -167,7 +170,7 @@ export default function AccountScreen() {
           setIsBiometricAvailable(availability.isAvailable);
         }
       } catch (error) {
-        console.error("Unable to check biometrics:", error);
+        logger.error("Unable to check biometrics.");
       } finally {
         if (isMounted) {
           setIsCheckingBiometrics(false);

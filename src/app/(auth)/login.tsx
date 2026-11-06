@@ -18,6 +18,8 @@ import { useTheme } from "@/hooks/use-theme";
 import { biometricAuth } from "@/services/auth/biometric-auth";
 import { spacing } from "@/theme";
 
+import { logger } from "@/utils/logger";
+
 export default function LoginScreen() {
   const { theme } = useTheme();
 
@@ -105,8 +107,8 @@ export default function LoginScreen() {
         "Your device identity has been verified. Complete account sign-in will be available once session restoration is connected.",
       );
     } catch (error) {
-      console.error("Biometric authentication error:", error);
-
+      logger.error("Biometric authentication failed.");
+      
       Alert.alert(
         "Authentication error",
         "Unable to complete biometric authentication. Please try again.",

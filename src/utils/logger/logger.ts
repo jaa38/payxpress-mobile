@@ -1,6 +1,5 @@
-const isDevelopment = process.env.EXPO_PUBLIC_ENVIRONMENT === "development";
 
-function formatMessage(message: string, context?: unknown): unknown[] {
+function formatMessage(message: string, context?: string): unknown[] {
   if (context === undefined) {
     return [message];
   }
@@ -9,31 +8,27 @@ function formatMessage(message: string, context?: unknown): unknown[] {
 }
 
 export const logger = {
-  debug(message: string, context?: unknown): void {
-    if (!isDevelopment) {
-      return;
-    }
+  debug(message: string, context?: string): void {
+    if (!__DEV__) return;
 
     console.debug("[DEBUG]", ...formatMessage(message, context));
   },
 
-  info(message: string, context?: unknown): void {
-    if (!isDevelopment) {
-      return;
-    }
+  info(message: string, context?: string): void {
+    if (!__DEV__) return;
 
     console.info("[INFO]", ...formatMessage(message, context));
   },
 
-  warn(message: string, context?: unknown): void {
-    if (!isDevelopment) {
-      return;
-    }
+  warn(message: string, context?: string): void {
+    if (!__DEV__) return;
 
     console.warn("[WARN]", ...formatMessage(message, context));
   },
 
-  error(message: string, error?: unknown): void {
-    console.error("[ERROR]", ...formatMessage(message, error));
+  error(message: string, context?: string): void {
+    if (!__DEV__) return;
+
+    console.error("[ERROR]", ...formatMessage(message, context));
   },
 };

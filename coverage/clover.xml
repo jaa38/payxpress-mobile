@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1793984261920" clover="3.2.0">
+  <project timestamp="1793984261920" name="All files">
+    <metrics statements="747" coveredstatements="617" conditionals="527" coveredconditionals="402" methods="227" coveredmethods="192" elements="1501" coveredelements="1211" complexity="0" loc="747" ncloc="747" packages="28" files="75" classes="75"/>
+    <package name="app">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="_layout.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/_layout.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.(auth)">
+      <metrics statements="75" coveredstatements="69" conditionals="49" coveredconditionals="36" methods="21" coveredmethods="21"/>
+      <file name="_layout.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/_layout.tsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="login.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/login.tsx">
+        <metrics statements="38" coveredstatements="34" conditionals="35" coveredconditionals="25" methods="10" coveredmethods="10"/>
+        <line num="24" count="58" type="stmt"/>
+        <line num="26" count="58" type="stmt"/>
+        <line num="27" count="58" type="stmt"/>
+        <line num="28" count="58" type="stmt"/>
+        <line num="29" count="58" type="stmt"/>
+        <line num="30" count="58" type="stmt"/>
+        <line num="33" count="58" type="stmt"/>
+        <line num="35" count="58" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="58" type="stmt"/>
+        <line num="39" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="62" count="58" type="stmt"/>
+        <line num="63" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="65" count="9" type="stmt"/>
+        <line num="66" count="9" type="stmt"/>
+        <line num="68" count="9" type="stmt"/>
+        <line num="70" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="3" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="105" count="3" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="117" count="9" type="stmt"/>
+        <line num="121" count="58" type="stmt"/>
+        <line num="151" count="1" type="stmt"/>
+        <line num="193" count="5" type="stmt"/>
+        <line num="194" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="209" count="4" type="stmt"/>
+        <line num="210" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="223" count="3" type="stmt"/>
+        <line num="321" count="1" type="stmt"/>
+      </file>
+      <file name="welcome.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/welcome.tsx">
+        <metrics statements="36" coveredstatements="34" conditionals="14" coveredconditionals="11" methods="10" coveredmethods="10"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="52" count="23" type="stmt"/>
+        <line num="53" count="23" type="stmt"/>
+        <line num="55" count="23" type="stmt"/>
+        <line num="56" count="23" type="stmt"/>
+        <line num="58" count="23" type="stmt"/>
+        <line num="60" count="23" type="stmt"/>
+        <line num="62" count="23" type="stmt"/>
+        <line num="63" count="23" type="stmt"/>
+        <line num="66" count="23" type="stmt"/>
+        <line num="67" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="72" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="7" type="stmt"/>
+        <line num="81" count="7" type="stmt"/>
+        <line num="82" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="88" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="92" count="3" type="stmt"/>
+        <line num="96" count="23" type="stmt"/>
+        <line num="98" count="23" type="stmt"/>
+        <line num="99" count="23" type="stmt"/>
+        <line num="100" count="23" type="stmt"/>
+        <line num="101" count="23" type="stmt"/>
+        <line num="102" count="23" type="stmt"/>
+        <line num="106" count="23" type="stmt"/>
+        <line num="107" count="23" type="stmt"/>
+        <line num="110" count="23" type="stmt"/>
+        <line num="128" count="69" type="stmt"/>
+        <line num="178" count="69" type="stmt"/>
+        <line num="237" count="1" type="stmt"/>
+        <line num="245" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.(auth).register">
+      <metrics statements="121" coveredstatements="91" conditionals="106" coveredconditionals="76" methods="32" coveredmethods="30"/>
+      <file name="_layout.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/_layout.tsx">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="bvn-confirmation.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/bvn-confirmation.tsx">
+        <metrics statements="20" coveredstatements="17" conditionals="8" coveredconditionals="4" methods="6" coveredmethods="6"/>
+        <line num="21" count="35" type="stmt"/>
+        <line num="23" count="35" type="stmt"/>
+        <line num="24" count="35" type="stmt"/>
+        <line num="26" count="35" type="stmt"/>
+        <line num="27" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="36" count="35" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="43" count="35" type="stmt"/>
+        <line num="45" count="35" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="116" count="12" type="stmt"/>
+        <line num="118" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="123" count="8" type="stmt"/>
+        <line num="124" count="8" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/index.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="3"/>
+        <line num="22" count="24" type="stmt"/>
+        <line num="24" count="24" type="stmt"/>
+        <line num="25" count="24" type="stmt"/>
+        <line num="27" count="24" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="195" count="1" type="stmt"/>
+      </file>
+      <file name="secure-password.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/secure-password.tsx">
+        <metrics statements="44" coveredstatements="30" conditionals="65" coveredconditionals="54" methods="9" coveredmethods="9"/>
+        <line num="22" count="61" type="stmt"/>
+        <line num="24" count="61" type="stmt"/>
+        <line num="25" count="61" type="stmt"/>
+        <line num="26" count="61" type="stmt"/>
+        <line num="27" count="61" type="stmt"/>
+        <line num="28" count="61" type="stmt"/>
+        <line num="31" count="61" type="stmt"/>
+        <line num="32" count="61" type="stmt"/>
+        <line num="33" count="61" type="stmt"/>
+        <line num="34" count="61" type="stmt"/>
+        <line num="35" count="61" type="stmt"/>
+        <line num="39" count="61" type="cond" truecount="3" falsecount="0"/>
+        <line num="45" count="61" type="cond" truecount="6" falsecount="0"/>
+        <line num="52" count="61" type="stmt"/>
+        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="58" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="63" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="68" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="73" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="91" count="61" type="stmt"/>
+        <line num="123" count="1" type="stmt"/>
+        <line num="177" count="15" type="stmt"/>
+        <line num="179" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="180" count="0" type="stmt"/>
+        <line num="189" count="3" type="stmt"/>
+        <line num="264" count="13" type="stmt"/>
+        <line num="266" count="13" type="cond" truecount="1" falsecount="1"/>
+        <line num="267" count="0" type="stmt"/>
+        <line num="279" count="1" type="stmt"/>
+      </file>
+      <file name="setup-account.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/setup-account.tsx">
+        <metrics statements="30" coveredstatements="21" conditionals="19" coveredconditionals="11" methods="6" coveredmethods="6"/>
+        <line num="21" count="48" type="stmt"/>
+        <line num="23" count="48" type="stmt"/>
+        <line num="24" count="48" type="stmt"/>
+        <line num="25" count="48" type="stmt"/>
+        <line num="26" count="48" type="stmt"/>
+        <line num="28" count="48" type="stmt"/>
+        <line num="31" count="48" type="cond" truecount="3" falsecount="0"/>
+        <line num="35" count="48" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="41" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="46" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="59" count="48" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="144" count="11" type="stmt"/>
+        <line num="146" count="11" type="cond" truecount="1" falsecount="1"/>
+        <line num="147" count="0" type="stmt"/>
+        <line num="160" count="9" type="stmt"/>
+        <line num="162" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="163" count="0" type="stmt"/>
+        <line num="178" count="1" type="stmt"/>
+        <line num="180" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="181" count="0" type="stmt"/>
+      </file>
+      <file name="verify-email.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(auth)/register/verify-email.tsx">
+        <metrics statements="20" coveredstatements="17" conditionals="10" coveredconditionals="5" methods="6" coveredmethods="6"/>
+        <line num="22" count="34" type="stmt"/>
+        <line num="24" count="34" type="stmt"/>
+        <line num="25" count="34" type="stmt"/>
+        <line num="27" count="34" type="stmt"/>
+        <line num="29" count="34" type="stmt"/>
+        <line num="30" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="39" count="34" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="46" count="34" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="130" count="11" type="stmt"/>
+        <line num="132" count="11" type="cond" truecount="1" falsecount="1"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="137" count="8" type="stmt"/>
+        <line num="138" count="8" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.(tabs)">
+      <metrics statements="73" coveredstatements="72" conditionals="51" coveredconditionals="48" methods="32" coveredmethods="31"/>
+      <file name="_layout.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(tabs)/_layout.tsx">
+        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="7" count="9" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="10" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+      <file name="account.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(tabs)/account.tsx">
+        <metrics statements="58" coveredstatements="57" conditionals="43" coveredconditionals="40" methods="26" coveredmethods="25"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="69" count="918" type="stmt"/>
+        <line num="71" count="918" type="stmt"/>
+        <line num="128" count="408" type="stmt"/>
+        <line num="140" count="102" type="stmt"/>
+        <line num="146" count="102" type="stmt"/>
+        <line num="148" count="102" type="stmt"/>
+        <line num="153" count="102" type="stmt"/>
+        <line num="156" count="102" type="stmt"/>
+        <line num="159" count="102" type="stmt"/>
+        <line num="161" count="102" type="stmt"/>
+        <line num="162" count="44" type="stmt"/>
+        <line num="164" count="44" type="stmt"/>
+        <line num="165" count="44" type="stmt"/>
+        <line num="166" count="44" type="stmt"/>
+        <line num="168" count="43" type="cond" truecount="1" falsecount="1"/>
+        <line num="169" count="43" type="stmt"/>
+        <line num="170" count="43" type="stmt"/>
+        <line num="173" count="1" type="stmt"/>
+        <line num="175" count="44" type="cond" truecount="1" falsecount="1"/>
+        <line num="176" count="44" type="stmt"/>
+        <line num="181" count="44" type="stmt"/>
+        <line num="183" count="44" type="stmt"/>
+        <line num="184" count="44" type="stmt"/>
+        <line num="188" count="102" type="stmt"/>
+        <line num="189" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="191" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="192" count="2" type="stmt"/>
+        <line num="199" count="2" type="stmt"/>
+        <line num="202" count="1" type="stmt"/>
+        <line num="209" count="102" type="stmt"/>
+        <line num="210" count="4" type="stmt"/>
+        <line num="222" count="2" type="stmt"/>
+        <line num="223" count="2" type="stmt"/>
+        <line num="224" count="1" type="stmt"/>
+        <line num="226" count="1" type="stmt"/>
+        <line num="237" count="102" type="stmt"/>
+        <line num="238" count="7" type="stmt"/>
+        <line num="244" count="102" type="stmt"/>
+        <line num="245" count="4" type="stmt"/>
+        <line num="246" count="4" type="stmt"/>
+        <line num="250" count="102" type="cond" truecount="1" falsecount="1"/>
+        <line num="251" count="116" type="stmt"/>
+        <line num="254" count="102" type="stmt"/>
+        <line num="342" count="1" type="stmt"/>
+        <line num="392" count="1" type="stmt"/>
+        <line num="414" count="1" type="stmt"/>
+        <line num="424" count="1" type="stmt"/>
+        <line num="434" count="8" type="stmt"/>
+        <line num="454" count="1" type="stmt"/>
+        <line num="461" count="1" type="stmt"/>
+        <line num="469" count="1" type="stmt"/>
+        <line num="520" count="0" type="stmt"/>
+        <line num="534" count="1" type="stmt"/>
+        <line num="576" count="1" type="stmt"/>
+        <line num="598" count="306" type="stmt"/>
+        <line num="600" count="306" type="stmt"/>
+        <line num="609" count="4" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(tabs)/index.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="10" count="10" type="stmt"/>
+        <line num="12" count="10" type="stmt"/>
+        <line num="15" count="10" type="cond" truecount="4" falsecount="0"/>
+        <line num="17" count="10" type="stmt"/>
+      </file>
+      <file name="pay-bills.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(tabs)/pay-bills.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+      </file>
+      <file name="transactions.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/app/(tabs)/transactions.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="components">
+      <metrics statements="65" coveredstatements="0" conditionals="55" coveredconditionals="0" methods="22" coveredmethods="0"/>
+      <file name="PayXpressLogo.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/PayXpressLogo.tsx">
+        <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+      </file>
+      <file name="animated-icon.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/animated-icon.tsx">
+        <metrics statements="28" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="65" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="84" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="136" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
+      </file>
+      <file name="animated-icon.web.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/animated-icon.web.tsx">
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+      </file>
+      <file name="app-tabs.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/app-tabs.tsx">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+      </file>
+      <file name="app-tabs.web.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/app-tabs.web.tsx">
+        <metrics statements="8" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+      </file>
+      <file name="external-link.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/external-link.tsx">
+        <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+      </file>
+      <file name="hint-row.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/hint-row.tsx">
+        <metrics statements="2" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+      <file name="themed-text.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/themed-text.tsx">
+        <metrics statements="4" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="65" count="0" type="stmt"/>
+      </file>
+      <file name="themed-view.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/themed-view.tsx">
+        <metrics statements="3" coveredstatements="0" conditionals="15" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="35" count="0" type="stmt"/>
+      </file>
+      <file name="web-badge.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/web-badge.tsx">
+        <metrics statements="3" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.auth">
+      <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="BiometricEnrollmentPrompt.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/auth/BiometricEnrollmentPrompt.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="25" count="22" type="stmt"/>
+        <line num="27" count="22" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui">
+      <metrics statements="6" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="collapsible.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/collapsible.tsx">
+        <metrics statements="6" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.AppText">
+      <metrics statements="6" coveredstatements="6" conditionals="7" coveredconditionals="5" methods="1" coveredmethods="1"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/AppText/index.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="7" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
+        <line num="70" count="7" type="stmt"/>
+        <line num="71" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="74" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="76" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.Button">
+      <metrics statements="22" coveredstatements="22" conditionals="38" coveredconditionals="34" methods="4" coveredmethods="4"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/Button/index.tsx">
+        <metrics statements="22" coveredstatements="22" conditionals="38" coveredconditionals="34" methods="4" coveredmethods="4"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="70" count="25" type="stmt"/>
+        <line num="72" count="25" type="stmt"/>
+        <line num="73" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="75" count="25" type="stmt"/>
+        <line num="78" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="79" count="8" type="stmt"/>
+        <line num="89" count="17" type="cond" truecount="4" falsecount="0"/>
+        <line num="91" count="14" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="122" count="25" type="stmt"/>
+        <line num="123" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="124" count="8" type="stmt"/>
+        <line num="127" count="17" type="cond" truecount="4" falsecount="0"/>
+        <line num="129" count="14" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="139" count="25" type="stmt"/>
+        <line num="151" count="25" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.Card">
+      <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/Card/index.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="38" count="16" type="stmt"/>
+        <line num="40" count="16" type="stmt"/>
+        <line num="45" count="16" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.Input">
+      <metrics statements="18" coveredstatements="18" conditionals="43" coveredconditionals="43" methods="4" coveredmethods="4"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/Input/index.tsx">
+        <metrics statements="18" coveredstatements="18" conditionals="43" coveredconditionals="43" methods="4" coveredmethods="4"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="55" count="40" type="stmt"/>
+        <line num="56" count="40" type="stmt"/>
+        <line num="58" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="66" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="40" type="stmt"/>
+        <line num="139" count="4" type="stmt"/>
+        <line num="140" count="4" type="stmt"/>
+        <line num="143" count="2" type="stmt"/>
+        <line num="144" count="2" type="stmt"/>
+        <line num="177" count="1" type="stmt"/>
+        <line num="183" count="40" type="cond" truecount="5" falsecount="0"/>
+        <line num="185" count="3" type="stmt"/>
+        <line num="191" count="7" type="stmt"/>
+        <line num="197" count="2" type="stmt"/>
+        <line num="204" count="28" type="stmt"/>
+        <line num="211" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.NumberInput">
+      <metrics statements="16" coveredstatements="16" conditionals="12" coveredconditionals="12" methods="4" coveredmethods="4"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/NumberInput/index.tsx">
+        <metrics statements="16" coveredstatements="16" conditionals="12" coveredconditionals="12" methods="4" coveredmethods="4"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="36" count="122" type="stmt"/>
+        <line num="37" count="122" type="stmt"/>
+        <line num="39" count="122" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="122" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="69" count="4" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="86" count="122" type="cond" truecount="4" falsecount="0"/>
+        <line num="88" count="3" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="100" count="3" type="stmt"/>
+        <line num="106" count="113" type="stmt"/>
+        <line num="113" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.OTPInput">
+      <metrics statements="33" coveredstatements="33" conditionals="21" coveredconditionals="20" methods="10" coveredmethods="10"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/OTPInput/index.tsx">
+        <metrics statements="33" coveredstatements="33" conditionals="21" coveredconditionals="20" methods="10" coveredmethods="10"/>
+        <line num="26" count="23" type="stmt"/>
+        <line num="28" count="23" type="stmt"/>
+        <line num="33" count="23" type="stmt"/>
+        <line num="39" count="12" type="stmt"/>
+        <line num="41" count="12" type="stmt"/>
+        <line num="43" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="39" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="52" count="12" type="stmt"/>
+        <line num="55" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="5" type="stmt"/>
+        <line num="57" count="5" type="stmt"/>
+        <line num="59" count="5" type="stmt"/>
+        <line num="60" count="19" type="stmt"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+        <line num="70" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="71" count="5" type="stmt"/>
+        <line num="74" count="5" type="stmt"/>
+        <line num="78" count="7" type="stmt"/>
+        <line num="80" count="7" type="stmt"/>
+        <line num="82" count="7" type="stmt"/>
+        <line num="84" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="85" count="5" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="95" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="100" count="23" type="stmt"/>
+        <line num="109" count="94" type="stmt"/>
+        <line num="112" count="188" type="cond" truecount="2" falsecount="0"/>
+        <line num="113" count="94" type="stmt"/>
+        <line num="117" count="12" type="stmt"/>
+        <line num="118" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.ui.PhoneInput">
+      <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+      <file name="index.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/components/ui/PhoneInput/index.tsx">
+        <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+        <line num="34" count="37" type="stmt"/>
+        <line num="36" count="37" type="stmt"/>
+        <line num="38" count="37" type="stmt"/>
+        <line num="45" count="4" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="50" count="37" type="stmt"/>
+        <line num="75" count="6" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="config">
+      <metrics statements="10" coveredstatements="10" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
+      <file name="api-config.ts" path="/Users/daniel/Developer/payxpress-mobile/src/config/api-config.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="12" count="5" type="stmt"/>
+      </file>
+      <file name="env.ts" path="/Users/daniel/Developer/payxpress-mobile/src/config/env.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="18" count="11" type="stmt"/>
+        <line num="22" count="43" type="stmt"/>
+        <line num="24" count="11" type="stmt"/>
+        <line num="30" count="11" type="stmt"/>
+        <line num="46" count="11" type="stmt"/>
+        <line num="67" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="73" count="9" type="stmt"/>
+      </file>
+    </package>
+    <package name="constants">
+      <metrics statements="6" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="storage.ts" path="/Users/daniel/Developer/payxpress-mobile/src/constants/storage.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+      </file>
+      <file name="theme.ts" path="/Users/daniel/Developer/payxpress-mobile/src/constants/theme.ts">
+        <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="64" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="65" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="hooks">
+      <metrics statements="38" coveredstatements="25" conditionals="12" coveredconditionals="4" methods="10" coveredmethods="5"/>
+      <file name="use-color-scheme.ts" path="/Users/daniel/Developer/payxpress-mobile/src/hooks/use-color-scheme.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="use-color-scheme.web.ts" path="/Users/daniel/Developer/payxpress-mobile/src/hooks/use-color-scheme.web.ts">
+        <metrics statements="7" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+      </file>
+      <file name="use-theme.ts" path="/Users/daniel/Developer/payxpress-mobile/src/hooks/use-theme.ts">
+        <metrics statements="6" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+      <file name="useBiometricAuth.ts" path="/Users/daniel/Developer/payxpress-mobile/src/hooks/useBiometricAuth.ts">
+        <metrics statements="25" coveredstatements="25" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
+        <line num="19" count="19" type="stmt"/>
+        <line num="21" count="19" type="stmt"/>
+        <line num="22" count="19" type="stmt"/>
+        <line num="24" count="19" type="stmt"/>
+        <line num="25" count="9" type="stmt"/>
+        <line num="26" count="9" type="stmt"/>
+        <line num="28" count="9" type="stmt"/>
+        <line num="33" count="9" type="stmt"/>
+        <line num="34" count="9" type="stmt"/>
+        <line num="36" count="9" type="stmt"/>
+        <line num="40" count="19" type="stmt"/>
+        <line num="41" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="57" count="19" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="62" count="19" type="stmt"/>
+        <line num="63" count="8" type="stmt"/>
+        <line num="66" count="19" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="http-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http-client.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="query-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/query-client.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="lib.http">
+      <metrics statements="41" coveredstatements="41" conditionals="22" coveredconditionals="22" methods="7" coveredmethods="7"/>
+      <file name="collection-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http/collection-client.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+      </file>
+      <file name="collection-staging-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http/collection-staging-client.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+      </file>
+      <file name="core-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http/core-client.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
+      <file name="interceptors.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http/interceptors.ts">
+        <metrics statements="31" coveredstatements="31" conditionals="22" coveredconditionals="22" methods="7" coveredmethods="7"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="45" count="6" type="stmt"/>
+        <line num="46" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="55" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="72" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="75" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="94" count="6" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="97" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="105" count="3" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+      </file>
+      <file name="payment-client.ts" path="/Users/daniel/Developer/payxpress-mobile/src/lib/http/payment-client.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="providers">
+      <metrics statements="12" coveredstatements="12" conditionals="12" coveredconditionals="12" methods="4" coveredmethods="4"/>
+      <file name="AppProviders.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/providers/AppProviders.tsx">
+        <metrics statements="9" coveredstatements="9" conditionals="12" coveredconditionals="12" methods="2" coveredmethods="2"/>
+        <line num="23" count="10" type="stmt"/>
+        <line num="24" count="10" type="stmt"/>
+        <line num="27" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="10" type="stmt"/>
+        <line num="44" count="10" type="cond" truecount="4" falsecount="0"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="48" count="9" type="stmt"/>
+      </file>
+      <file name="AuthBootstrap.tsx" path="/Users/daniel/Developer/payxpress-mobile/src/providers/AuthBootstrap.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="services.auth">
+      <metrics statements="80" coveredstatements="80" conditionals="32" coveredconditionals="32" methods="23" coveredmethods="23"/>
+      <file name="auth-api.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/auth-api.ts">
+        <metrics statements="25" coveredstatements="25" conditionals="1" coveredconditionals="1" methods="12" coveredmethods="12"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="100" count="1" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="164" count="1" type="stmt"/>
+        <line num="171" count="1" type="stmt"/>
+        <line num="176" count="1" type="stmt"/>
+      </file>
+      <file name="auth-hydration.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/auth-hydration.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+      </file>
+      <file name="auth-service.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/auth-service.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="22" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="3" type="stmt"/>
+      </file>
+      <file name="auth-session.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/auth-session.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+      </file>
+      <file name="auth-types.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/auth-types.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="biometric-auth.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/auth/biometric-auth.ts">
+        <metrics statements="34" coveredstatements="34" conditionals="23" coveredconditionals="23" methods="5" coveredmethods="5"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="33" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="54" count="10" type="stmt"/>
+        <line num="60" count="9" type="stmt"/>
+        <line num="63" count="9" type="cond" truecount="3" falsecount="0"/>
+        <line num="69" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="71" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="77" count="9" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
+        <line num="89" count="4" type="stmt"/>
+        <line num="91" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="105" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="124" count="3" type="stmt"/>
+        <line num="128" count="3" type="stmt"/>
+        <line num="132" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="140" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="services.collection">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+      <file name="collection-api.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/collection/collection-api.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+      </file>
+      <file name="collection-types.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/collection/collection-types.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="services.payments">
+      <metrics statements="32" coveredstatements="32" conditionals="2" coveredconditionals="2" methods="15" coveredmethods="15"/>
+      <file name="payment-api.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/payments/payment-api.ts">
+        <metrics statements="25" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="12"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="165" count="1" type="stmt"/>
+        <line num="171" count="1" type="stmt"/>
+        <line num="181" count="1" type="stmt"/>
+        <line num="187" count="1" type="stmt"/>
+      </file>
+      <file name="payment-session.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/payments/payment-session.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="services.storage">
+      <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="database.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/storage/database.ts">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+      </file>
+      <file name="mmkv-storage.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/storage/mmkv-storage.ts">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+      </file>
+      <file name="secure-storage.ts" path="/Users/daniel/Developer/payxpress-mobile/src/services/storage/secure-storage.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="store">
+      <metrics statements="13" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="11" coveredmethods="10"/>
+      <file name="app-store.ts" path="/Users/daniel/Developer/payxpress-mobile/src/store/app-store.ts">
+        <metrics statements="9" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+      </file>
+      <file name="auth-store.ts" path="/Users/daniel/Developer/payxpress-mobile/src/store/auth-store.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="32" count="7" type="stmt"/>
+        <line num="39" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="theme">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="colors.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/colors.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="18" type="stmt"/>
+      </file>
+      <file name="fonts.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/fonts.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="17" type="stmt"/>
+      </file>
+      <file name="radius.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/radius.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="17" type="stmt"/>
+      </file>
+      <file name="spacing.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/spacing.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="17" type="stmt"/>
+      </file>
+      <file name="theme.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/theme.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="16" count="18" type="stmt"/>
+        <line num="259" count="18" type="stmt"/>
+        <line num="486" count="18" type="stmt"/>
+      </file>
+      <file name="typography.ts" path="/Users/daniel/Developer/payxpress-mobile/src/theme/typography.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="17" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils.errors">
+      <metrics statements="22" coveredstatements="22" conditionals="22" coveredconditionals="22" methods="2" coveredmethods="2"/>
+      <file name="app-error.ts" path="/Users/daniel/Developer/payxpress-mobile/src/utils/errors/app-error.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="30" count="9" type="stmt"/>
+        <line num="32" count="9" type="stmt"/>
+        <line num="33" count="9" type="stmt"/>
+        <line num="34" count="9" type="stmt"/>
+        <line num="35" count="9" type="stmt"/>
+        <line num="36" count="9" type="stmt"/>
+        <line num="38" count="9" type="stmt"/>
+      </file>
+      <file name="normalize-error.ts" path="/Users/daniel/Developer/payxpress-mobile/src/utils/errors/normalize-error.ts">
+        <metrics statements="15" coveredstatements="15" conditionals="22" coveredconditionals="22" methods="1" coveredmethods="1"/>
+        <line num="6" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="20" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="31" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="43" count="2" type="cond" truecount="6" falsecount="0"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="61" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils.logger">
+      <metrics statements="12" coveredstatements="11" conditionals="10" coveredconditionals="9" methods="5" coveredmethods="5"/>
+      <file name="logger.ts" path="/Users/daniel/Developer/payxpress-mobile/src/utils/logger/logger.ts">
+        <metrics statements="12" coveredstatements="11" conditionals="10" coveredconditionals="9" methods="5" coveredmethods="5"/>
+        <line num="3" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="12" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="24" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

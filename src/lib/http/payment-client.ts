@@ -1,8 +1,10 @@
-
 import axios from "axios";
 
 import { apiConfig } from "@/config/api-config";
-import { attachResponseInterceptor } from "@/lib/http/interceptors";
+import {
+    attachPaymentAuthInterceptor,
+    attachResponseInterceptor,
+} from "@/lib/http/interceptors";
 
 export const paymentClient = axios.create({
     baseURL: apiConfig.payment.baseURL,
@@ -12,4 +14,5 @@ export const paymentClient = axios.create({
     },
 });
 
+attachPaymentAuthInterceptor(paymentClient);
 attachResponseInterceptor(paymentClient);
