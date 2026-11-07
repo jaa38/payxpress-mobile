@@ -4,4 +4,5 @@ export const STORAGE_KEYS = {
   paymentToken: "payxpress.payment_token",
   deviceId: "payxpress.device_id",
   biometricEnabled: "payxpress.biometric_enabled",
+  onboardingCompleted: "payxpress.onboarding_completed",
 } as const;

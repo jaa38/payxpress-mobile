@@ -148,7 +148,7 @@ describe("BVNConfirmationScreen", () => {
 
             expect(
                 screen.getByText(
-                    /A message with OTP has being sent to your phone number/,
+                    /A message with an OTP has been sent to your phone number/,
                 ),
             ).toBeTruthy();
         });
@@ -279,21 +279,22 @@ describe("BVNConfirmationScreen", () => {
     });
 
     describe("Error handling", () => {
-        it("displays an error when Continue is invoked with an incomplete OTP", () => {
+        it("does not display a validation error while Verify is disabled for an incomplete OTP", () => {
             render(<BVNConfirmationScreen />);
 
-            const screenInstance = screen.getByLabelText("OTP");
+            fireEvent.changeText(
+                screen.getByLabelText("OTP"),
+                "12345",
+            );
 
-            fireEvent.changeText(screenInstance, "12345");
-
-            // The Verify button is disabled for an incomplete OTP.
-            // This screen's handler is therefore not invoked through the UI.
             expect(
-                screen.queryByText("Enter the 6-digit OTP sent to you."),
+                screen.queryByText(
+                    "Enter the 6-digit OTP sent to your phone number.",
+                ),
             ).toBeNull();
         });
 
-        it("does not display an error for a valid six-digit OTP", () => {
+        it("does not display an incomplete OTP error for a valid six-digit OTP", () => {
             render(<BVNConfirmationScreen />);
 
             fireEvent.changeText(
@@ -302,11 +303,13 @@ describe("BVNConfirmationScreen", () => {
             );
 
             expect(
-                screen.queryByText("Enter the 6-digit OTP sent to you."),
+                screen.queryByText(
+                    "Enter the 6-digit OTP sent to your phone number.",
+                ),
             ).toBeNull();
         });
 
-        it("clears an existing error when the OTP changes", () => {
+        it("does not retain an error when the OTP changes", () => {
             render(<BVNConfirmationScreen />);
 
             fireEvent.changeText(
@@ -320,7 +323,9 @@ describe("BVNConfirmationScreen", () => {
             );
 
             expect(
-                screen.queryByText("Enter the 6-digit OTP sent to you."),
+                screen.queryByText(
+                    "Enter the 6-digit OTP sent to your phone number.",
+                ),
             ).toBeNull();
         });
     });
@@ -384,7 +389,7 @@ describe("BVNConfirmationScreen", () => {
             expect(mockRouterBack).toHaveBeenCalledTimes(1);
         });
 
-        it("navigates to account setup when Verify is pressed with a valid OTP", () => {
+        it("does not navigate to account setup based only on local OTP validation", () => {
             render(<BVNConfirmationScreen />);
 
             fireEvent.changeText(
@@ -398,7 +403,24 @@ describe("BVNConfirmationScreen", () => {
                 }),
             );
 
-            expect(mockRouterPush).toHaveBeenCalledWith(
+            expect(mockRouterPush).not.toHaveBeenCalled();
+        });
+
+        it("does not navigate when the OTP has not been verified by the backend", () => {
+            render(<BVNConfirmationScreen />);
+
+            fireEvent.changeText(
+                screen.getByLabelText("OTP"),
+                "123456",
+            );
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Verify",
+                }),
+            );
+
+            expect(mockRouterPush).not.toHaveBeenCalledWith(
                 "/register/setup-account",
             );
         });

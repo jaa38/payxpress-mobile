@@ -15,9 +15,9 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useTheme } from "@/hooks/use-theme";
+import { authService } from "@/services/auth/auth-service";
 import { biometricAuth } from "@/services/auth/biometric-auth";
 import { spacing } from "@/theme";
-
 import { logger } from "@/utils/logger";
 
 export default function LoginScreen() {
@@ -26,7 +26,9 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isBiometricLoading, setIsBiometricLoading] = useState(false);
 
   const isEmailValid =
@@ -35,7 +37,14 @@ export default function LoginScreen() {
   const isFormValid = isEmailValid && password.length > 0;
 
   // Normal email and password login
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    if (isLoading) return;
+
+    if (!email.trim()) {
+      setError("Enter your email address.");
+      return;
+    }
+
     if (!isEmailValid) {
       setError("Enter a valid email address.");
       return;
@@ -47,15 +56,44 @@ export default function LoginScreen() {
     }
 
     setError("");
+    setIsLoading(true);
 
-    /*
-     * TODO:
-     * Connect to the authentication API once the backend
-     * login endpoint and response contract are available.
-     *
-     * The API response should eventually provide the
-     * access and refresh tokens required by authSession.
-     */
+    try {
+      const response = await authService.login({
+        email: email.trim().toLowerCase(),
+        password,
+      });
+
+      /*
+       * The API request has completed, but the response
+       * contract has not yet been confirmed.
+       *
+       * We must map the actual access token, refresh token
+       * and user profile before establishing a session.
+       */
+      logger.info("Login API request completed.");
+
+      Alert.alert(
+        "Login response received",
+        "The authentication service responded. Session establishment is pending backend response mapping.",
+      );
+
+      // Do not navigate to /(tabs) yet.
+      // Do not mark the user as authenticated yet.
+      // Do not assume response token property names.
+
+      void response;
+    } catch (error) {
+      logger.error("Login request failed.");
+
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Unable to sign in. Please check your details and try again.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Biometric login
@@ -68,7 +106,6 @@ export default function LoginScreen() {
       const result = await biometricAuth.authenticate();
 
       if (!result.success) {
-        // Avoid showing an error when the user intentionally cancels.
         if (
           result.error === "user_cancel" ||
           result.error === "system_cancel" ||
@@ -87,28 +124,20 @@ export default function LoginScreen() {
       }
 
       /*
-       * TODO:
-       * Restore the authenticated PayXpress session.
+       * Device biometric verification is not the same as
+       * PayXpress backend authentication.
        *
-       * Once the backend refresh-token endpoint is available:
-       * 1. Retrieve the protected biometric credential.
-       * 2. Call the refresh-token API.
-       * 3. Save the returned session using authSession.
-       * 4. Restore the authenticated user profile.
-       * 5. Update useAuthStore.
-       * 6. Navigate to /(tabs).
-       *
-       * Local biometric verification alone does not
-       * authenticate the customer with the backend.
+       * Session restoration must be implemented before
+       * biometric verification can open the dashboard.
        */
 
       Alert.alert(
         "Face ID verified",
-        "Your device identity has been verified. Complete account sign-in will be available once session restoration is connected.",
+        "Your device identity has been verified. PayXpress session restoration is not connected yet.",
       );
-    } catch (error) {
+    } catch {
       logger.error("Biometric authentication failed.");
-      
+
       Alert.alert(
         "Authentication error",
         "Unable to complete biometric authentication. Please try again.",
@@ -200,6 +229,7 @@ export default function LoginScreen() {
               error={error && !isEmailValid ? error : undefined}
             />
 
+            {/* Password */}
             <View style={{ marginTop: spacing.lg }}>
               <Input
                 label="Password"
@@ -248,7 +278,7 @@ export default function LoginScreen() {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Forgot password"
-              onPress={() => { }}
+              onPress={() => router.push("/forgot-password")}
               style={{
                 alignSelf: "flex-end",
                 marginTop: spacing.md,
@@ -260,7 +290,8 @@ export default function LoginScreen() {
               </AppText>
             </Pressable>
 
-            {error && isEmailValid ? (
+            {/* Error */}
+            {error ? (
               <AppText
                 variant="bodySmall"
                 color="error"
@@ -277,26 +308,27 @@ export default function LoginScreen() {
               paddingVertical: spacing.lg,
             }}
           >
-            {/* Face ID Secondary Button */}
+            {/* Face ID */}
             <Button
               title="Sign In with Face ID"
               variant="tertiary"
               size="large"
               onPress={handleBiometricLogin}
               loading={isBiometricLoading}
-              disabled={isBiometricLoading}
+              disabled={isBiometricLoading || isLoading}
               style={{
                 width: "100%",
                 marginBottom: spacing.md,
               }}
             />
 
-            {/* Primary Login Button */}
+            {/* Login */}
             <Button
               title="Login"
               size="large"
               onPress={handleLogin}
-              disabled={!isFormValid}
+              loading={isLoading}
+              disabled={!isFormValid || isLoading}
               style={{
                 width: "100%",
               }}

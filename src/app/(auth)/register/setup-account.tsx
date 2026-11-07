@@ -15,22 +15,34 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useTheme } from "@/hooks/use-theme";
+import { useRegistrationStore } from "@/store/registration-store";
 import { spacing } from "@/theme";
 
 export default function SetupAccountScreen() {
   const { theme } = useTheme();
 
-  const [email, setEmail] = useState("");
-  const [tagName, setTagName] = useState("");
-  const [referralCode, setReferralCode] = useState("");
+  const draft = useRegistrationStore((state) => state.draft);
+  const updateDraft = useRegistrationStore((state) => state.updateDraft);
+
   const [error, setError] = useState("");
 
+  const {
+    fullName,
+    phoneNumber,
+    email,
+    tagName,
+    referralCode,
+  } = draft;
+
+  // Email validation
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
-  const canContinue =
-    email.trim().length > 0 &&
-    isValidEmail &&
-    tagName.trim().length > 0;
+  // Tag name validation
+  const isValidTagName = tagName.trim().length > 0;
+
+  // Email and tag name are required.
+  // Referral code is optional.
+  const canContinue = isValidEmail && isValidTagName;
 
   const handleContinue = () => {
     if (!email.trim()) {
@@ -43,15 +55,16 @@ export default function SetupAccountScreen() {
       return;
     }
 
-    if (!tagName.trim()) {
+    if (!isValidTagName) {
       setError("Enter your tag name.");
       return;
     }
 
     setError("");
 
-    // TODO: Connect account setup to the registration API.
-    // TODO: Pass registration data into the email verification flow.
+    // Registration data is available through registration-store.
+    // Backend registration and OTP generation will be connected
+    // after the request/response contracts are confirmed.
 
     router.push("/register/verify-email");
   };
@@ -133,31 +146,36 @@ export default function SetupAccountScreen() {
               marginTop: spacing["2xl"],
             }}
           >
+            {/* Full Name - Retrieved from BVN verification */}
             <Input
-              label="Email Address"
-              placeholder="Enter your email address"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={email}
-              onChangeText={(value) => {
-                setEmail(value);
-
-                if (error) {
-                  setError("");
-                }
-              }}
+              label="Full Name"
+              value={fullName}
+              placeholder="Retrieved from BVN verification"
+              editable={false}
             />
 
+            {/* Phone Number - Retrieved from BVN verification */}
             <View style={{ marginTop: spacing.lg }}>
               <Input
-                label="Tag Name"
-                placeholder="Enter your tag name"
+                label="Phone Number"
+                value={phoneNumber}
+                placeholder="Retrieved from BVN verification"
+                editable={false}
+                keyboardType="phone-pad"
+              />
+            </View>
+
+            {/* Email Address */}
+            <View style={{ marginTop: spacing.lg }}>
+              <Input
+                label="Email Address"
+                placeholder="Enter your email address"
+                keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
-                value={tagName}
+                value={email}
                 onChangeText={(value) => {
-                  setTagName(value);
+                  updateDraft({ email: value.trimStart() });
 
                   if (error) {
                     setError("");
@@ -166,6 +184,25 @@ export default function SetupAccountScreen() {
               />
             </View>
 
+            {/* Tag Name */}
+            <View style={{ marginTop: spacing.lg }}>
+              <Input
+                label="Tag Name"
+                placeholder="Enter your tag name"
+                autoCapitalize="none"
+                autoCorrect={false}
+                value={tagName}
+                onChangeText={(value) => {
+                  updateDraft({ tagName: value });
+
+                  if (error) {
+                    setError("");
+                  }
+                }}
+              />
+            </View>
+
+            {/* Referral Code */}
             <View style={{ marginTop: spacing.lg }}>
               <Input
                 label="Referral Code"
@@ -175,7 +212,7 @@ export default function SetupAccountScreen() {
                 autoCorrect={false}
                 value={referralCode}
                 onChangeText={(value) => {
-                  setReferralCode(value);
+                  updateDraft({ referralCode: value });
 
                   if (error) {
                     setError("");
@@ -184,6 +221,7 @@ export default function SetupAccountScreen() {
               />
             </View>
 
+            {/* Validation Error */}
             {error ? (
               <AppText
                 variant="bodySmall"
@@ -204,7 +242,7 @@ export default function SetupAccountScreen() {
               disabled={!canContinue}
             />
 
-            {/* CBN licensing */}
+            {/* CBN Licensing */}
             <View
               style={{
                 flexDirection: "row",

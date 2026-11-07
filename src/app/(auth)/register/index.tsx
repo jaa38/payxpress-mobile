@@ -2,7 +2,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -16,13 +15,24 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useTheme } from "@/hooks/use-theme";
+import { useRegistrationStore } from "@/store/registration-store";
 import { spacing } from "@/theme";
 
 export default function RegisterScreen() {
   const { theme, isDark } = useTheme();
 
-  const [bvn, setBvn] = useState("");
+  const bvn = useRegistrationStore((state) => state.draft.bvn);
+  const updateDraft = useRegistrationStore((state) => state.updateDraft);
+
   const isBvnValid = /^\d{11}$/.test(bvn);
+
+  const handleContinue = () => {
+    if (!isBvnValid) {
+      return;
+    }
+
+    router.push("/register/bvn-confirmation");
+  };
 
   return (
     <SafeAreaView
@@ -109,7 +119,11 @@ export default function RegisterScreen() {
               keyboardType="number-pad"
               maxLength={11}
               value={bvn}
-              onChangeText={setBvn}
+              onChangeText={(value) =>
+                updateDraft({
+                  bvn: value.replace(/\D/g, ""),
+                })
+              }
             />
 
             {/* BVN assistance */}
@@ -192,7 +206,7 @@ export default function RegisterScreen() {
             <Button
               title="Next"
               size="large"
-              onPress={() => router.push("/register/bvn-confirmation")}
+              onPress={handleContinue}
               disabled={!isBvnValid}
             />
 

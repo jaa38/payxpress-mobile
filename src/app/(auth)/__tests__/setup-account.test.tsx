@@ -5,8 +5,10 @@ import {
     screen,
 } from "@testing-library/react-native";
 import React from "react";
+import { TextInput } from "react-native";
 
 import SetupAccountScreen from "../register/setup-account";
+import { useRegistrationStore } from "@/store/registration-store";
 
 const mockRouterBack = jest.fn();
 const mockRouterPush = jest.fn();
@@ -135,7 +137,17 @@ jest.mock("@/components/ui/Button", () => {
 describe("SetupAccountScreen", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // Reset the Zustand registration store between tests.
+        useRegistrationStore.getState().clearDraft();
     });
+
+    const populateIdentityDetails = () => {
+        useRegistrationStore.getState().updateDraft({
+            fullName: "Test Customer",
+            phoneNumber: "08000000000",
+        });
+    };
 
     const fillValidForm = () => {
         fireEvent.changeText(
@@ -168,8 +180,16 @@ describe("SetupAccountScreen", () => {
             ).toBeTruthy();
         });
 
-        it("renders all three input fields", () => {
+        it("renders all five input fields", () => {
             render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Full Name"),
+            ).toBeTruthy();
+
+            expect(
+                screen.getByLabelText("Phone Number"),
+            ).toBeTruthy();
 
             expect(
                 screen.getByLabelText("Email Address"),
@@ -263,6 +283,159 @@ describe("SetupAccountScreen", () => {
             expect(
                 screen.getByLabelText("Central Bank of Nigeria"),
             ).toBeTruthy();
+        });
+    });
+
+    describe("BVN customer details", () => {
+        it("displays the full name from the registration store", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Full Name").props.value,
+            ).toBe("Test Customer");
+        });
+
+        it("displays the phone number from the registration store", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Phone Number").props.value,
+            ).toBe("08000000000");
+        });
+
+        it("makes the full name field read-only", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Full Name").props.editable,
+            ).toBe(false);
+        });
+
+        it("makes the phone number field read-only", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Phone Number").props.editable,
+            ).toBe(false);
+        });
+
+        it("does not allow changes to the full name field", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            const fullNameInput = screen.getByLabelText("Full Name");
+
+            fireEvent.changeText(fullNameInput, "Changed Customer");
+
+            expect(
+                useRegistrationStore.getState().draft.fullName,
+            ).toBe("Test Customer");
+        });
+
+        it("does not allow changes to the phone number field", () => {
+            populateIdentityDetails();
+
+            render(<SetupAccountScreen />);
+
+            const phoneInput = screen.getByLabelText("Phone Number");
+
+            fireEvent.changeText(phoneInput, "08111111111");
+
+            expect(
+                useRegistrationStore.getState().draft.phoneNumber,
+            ).toBe("08000000000");
+        });
+
+        it("places full name and phone number before email address", () => {
+            render(<SetupAccountScreen />);
+
+            const inputs = screen.UNSAFE_getAllByType(TextInput);
+
+            const fieldOrder = inputs.map(
+                (input) => input.props.accessibilityLabel,
+            );
+
+            const fullNameIndex = fieldOrder.indexOf("Full Name");
+            const phoneNumberIndex = fieldOrder.indexOf("Phone Number");
+            const emailIndex = fieldOrder.indexOf("Email Address");
+
+            expect(fullNameIndex).toBeGreaterThanOrEqual(0);
+            expect(phoneNumberIndex).toBeGreaterThan(fullNameIndex);
+            expect(emailIndex).toBeGreaterThan(phoneNumberIndex);
+        });
+    });
+
+    describe("Editable fields", () => {
+        it("keeps the email address editable", () => {
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Email Address").props.editable,
+            ).not.toBe(false);
+        });
+
+        it("keeps the tag name editable", () => {
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Tag Name").props.editable,
+            ).not.toBe(false);
+        });
+
+        it("keeps the referral code editable", () => {
+            render(<SetupAccountScreen />);
+
+            expect(
+                screen.getByLabelText("Referral Code").props.editable,
+            ).not.toBe(false);
+        });
+
+        it("updates the email address in the registration store", () => {
+            render(<SetupAccountScreen />);
+
+            fireEvent.changeText(
+                screen.getByLabelText("Email Address"),
+                "test@example.com",
+            );
+
+            expect(
+                useRegistrationStore.getState().draft.email,
+            ).toBe("test@example.com");
+        });
+
+        it("updates the tag name in the registration store", () => {
+            render(<SetupAccountScreen />);
+
+            fireEvent.changeText(
+                screen.getByLabelText("Tag Name"),
+                "jeremiah",
+            );
+
+            expect(
+                useRegistrationStore.getState().draft.tagName,
+            ).toBe("jeremiah");
+        });
+
+        it("updates the referral code in the registration store", () => {
+            render(<SetupAccountScreen />);
+
+            fireEvent.changeText(
+                screen.getByLabelText("Referral Code"),
+                "XPRESS123",
+            );
+
+            expect(
+                useRegistrationStore.getState().draft.referralCode,
+            ).toBe("XPRESS123");
         });
     });
 

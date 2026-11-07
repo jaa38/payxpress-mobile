@@ -16,15 +16,33 @@ import { AppText } from "@/components/ui/AppText";
 import { Button } from "@/components/ui/Button";
 import { OTPInput } from "@/components/ui/OTPInput";
 import { useTheme } from "@/hooks/use-theme";
+import { useRegistrationStore } from "@/store/registration-store";
 import { spacing } from "@/theme";
 
 export default function VerifyEmailScreen() {
   const { theme, isDark } = useTheme();
 
+  const email = useRegistrationStore((state) => state.draft.email);
+
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
+  const [isResending, setIsResending] = useState(false);
 
+  // OTP must contain exactly six numeric digits.
   const isOtpComplete = /^\d{6}$/.test(otp);
+
+  const handleOtpChange = (code: string) => {
+    setOtp(code.replace(/\D/g, ""));
+
+    if (error) {
+      setError("");
+    }
+  };
+
+  const handleOtpComplete = (code: string) => {
+    setOtp(code.replace(/\D/g, ""));
+    setError("");
+  };
 
   const handleContinue = () => {
     if (!isOtpComplete) {
@@ -32,15 +50,26 @@ export default function VerifyEmailScreen() {
       return;
     }
 
-    setError("");
-    router.push("/register/secure-password");
+    setError(
+      "Email verification is not connected yet. Please try again once verification services are available.",
+    );
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
+    if (isResending) {
+      return;
+    }
+
+    setIsResending(true);
     setOtp("");
     setError("");
 
-    // TODO: Connect to the email OTP resend API.
+    try {
+      // TODO: Connect to the email OTP resend API.
+      // Use the registration email and enforce backend resend limits.
+    } finally {
+      setIsResending(false);
+    }
   };
 
   return (
@@ -112,6 +141,16 @@ export default function VerifyEmailScreen() {
               >
                 Enter the 6-digit OTP sent to your email address.
               </AppText>
+
+              {email ? (
+                <AppText
+                  variant="bodyBold"
+                  color="primary"
+                  style={{ marginTop: spacing.sm }}
+                >
+                  {email}
+                </AppText>
+              ) : null}
             </View>
           </View>
 
@@ -126,17 +165,8 @@ export default function VerifyEmailScreen() {
               <OTPInput
                 length={6}
                 value={otp}
-                onChange={(code) => {
-                  setOtp(code);
-
-                  if (error) {
-                    setError("");
-                  }
-                }}
-                onComplete={(code) => {
-                  setOtp(code);
-                  setError("");
-                }}
+                onChange={handleOtpChange}
+                onComplete={handleOtpComplete}
               />
 
               {error ? (
@@ -154,16 +184,19 @@ export default function VerifyEmailScreen() {
             {/* Resend OTP */}
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Resend OTP"
+              accessibilityLabel="Resend email OTP"
+              accessibilityState={{ disabled: isResending }}
+              disabled={isResending}
               onPress={handleResendOtp}
               style={{
                 alignSelf: "flex-start",
                 marginTop: spacing.lg,
                 paddingVertical: spacing.xs,
+                opacity: isResending ? 0.5 : 1,
               }}
             >
               <AppText variant="bodyBold" color="link">
-                Resend OTP
+                {isResending ? "Resending..." : "Resend OTP"}
               </AppText>
             </Pressable>
           </View>

@@ -14,6 +14,7 @@ const mockedHydrateAuth = jest.mocked(hydrateAuth);
 describe("AuthBootstrap", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        mockedHydrateAuth.mockResolvedValue(undefined);
     });
 
     it("renders its children", () => {

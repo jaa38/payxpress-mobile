@@ -7,6 +7,7 @@ import {
 import React from "react";
 
 import VerifyEmailScreen from "../register/verify-email";
+import { useRegistrationStore } from "@/store/registration-store";
 
 const mockRouterBack = jest.fn();
 const mockRouterPush = jest.fn();
@@ -137,7 +138,17 @@ jest.mock("@/components/ui/Button", () => {
 describe("VerifyEmailScreen", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // Reset registration data between tests.
+        useRegistrationStore.getState().clearDraft();
     });
+
+    const enterValidOtp = () => {
+        fireEvent.changeText(
+            screen.getByLabelText("OTP"),
+            "123456",
+        );
+    };
 
     describe("Rendering", () => {
         it("renders the email verification heading", () => {
@@ -211,6 +222,28 @@ describe("VerifyEmailScreen", () => {
         });
     });
 
+    describe("Registration store integration", () => {
+        it("displays the email address from the registration store", () => {
+            useRegistrationStore.getState().updateDraft({
+                email: "test@example.com",
+            });
+
+            render(<VerifyEmailScreen />);
+
+            expect(
+                screen.getByText("test@example.com"),
+            ).toBeTruthy();
+        });
+
+        it("does not display an email address when none is stored", () => {
+            render(<VerifyEmailScreen />);
+
+            expect(
+                screen.queryByText("test@example.com"),
+            ).toBeNull();
+        });
+    });
+
     describe("OTP validation", () => {
         it("disables Continue when the OTP is empty", () => {
             render(<VerifyEmailScreen />);
@@ -240,10 +273,7 @@ describe("VerifyEmailScreen", () => {
         it("enables Continue when the OTP contains six digits", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
-            );
+            enterValidOtp();
 
             expect(
                 screen.getByRole("button", {
@@ -289,33 +319,57 @@ describe("VerifyEmailScreen", () => {
 
             expect(
                 screen.queryByText(
-                    "Enter the 6-digit OTP sent to your email.",
+                    "Email verification is not connected yet. Please try again once verification services are available.",
                 ),
             ).toBeNull();
         });
 
-        it("does not display an error for a valid OTP", () => {
+        it("does not display an error when a valid OTP is entered", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
-            );
+            enterValidOtp();
 
             expect(
                 screen.queryByText(
-                    "Enter the 6-digit OTP sent to your email.",
+                    "Email verification is not connected yet. Please try again once verification services are available.",
                 ),
             ).toBeNull();
+        });
+
+        it("displays an error when Continue is pressed with an unverified OTP", () => {
+            render(<VerifyEmailScreen />);
+
+            enterValidOtp();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Continue",
+                }),
+            );
+
+            expect(
+                screen.getByText(
+                    "Email verification is not connected yet. Please try again once verification services are available.",
+                ),
+            ).toBeTruthy();
         });
 
         it("clears the error when the OTP changes", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
+            enterValidOtp();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Continue",
+                }),
             );
+
+            expect(
+                screen.getByText(
+                    "Email verification is not connected yet. Please try again once verification services are available.",
+                ),
+            ).toBeTruthy();
 
             fireEvent.changeText(
                 screen.getByLabelText("OTP"),
@@ -324,7 +378,7 @@ describe("VerifyEmailScreen", () => {
 
             expect(
                 screen.queryByText(
-                    "Enter the 6-digit OTP sent to your email.",
+                    "Email verification is not connected yet. Please try again once verification services are available.",
                 ),
             ).toBeNull();
         });
@@ -334,10 +388,7 @@ describe("VerifyEmailScreen", () => {
         it("clears the entered OTP when Resend OTP is pressed", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
-            );
+            enterValidOtp();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -353,10 +404,7 @@ describe("VerifyEmailScreen", () => {
         it("allows a new OTP to be entered after resending", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
-            );
+            enterValidOtp();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -373,6 +421,36 @@ describe("VerifyEmailScreen", () => {
                 screen.getByLabelText("OTP").props.value,
             ).toBe("654321");
         });
+
+        it("clears an existing error when Resend OTP is pressed", () => {
+            render(<VerifyEmailScreen />);
+
+            enterValidOtp();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Continue",
+                }),
+            );
+
+            expect(
+                screen.getByText(
+                    "Email verification is not connected yet. Please try again once verification services are available.",
+                ),
+            ).toBeTruthy();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Resend OTP",
+                }),
+            );
+
+            expect(
+                screen.queryByText(
+                    "Email verification is not connected yet. Please try again once verification services are available.",
+                ),
+            ).toBeNull();
+        });
     });
 
     describe("Navigation", () => {
@@ -388,13 +466,10 @@ describe("VerifyEmailScreen", () => {
             expect(mockRouterBack).toHaveBeenCalledTimes(1);
         });
 
-        it("navigates to secure password setup with a valid OTP", () => {
+        it("does not navigate to secure password setup with an unverified OTP", () => {
             render(<VerifyEmailScreen />);
 
-            fireEvent.changeText(
-                screen.getByLabelText("OTP"),
-                "123456",
-            );
+            enterValidOtp();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -402,9 +477,24 @@ describe("VerifyEmailScreen", () => {
                 }),
             );
 
-            expect(mockRouterPush).toHaveBeenCalledWith(
-                "/register/secure-password",
+            expect(mockRouterPush).not.toHaveBeenCalled();
+        });
+
+        it("does not navigate when the OTP is incomplete", () => {
+            render(<VerifyEmailScreen />);
+
+            fireEvent.changeText(
+                screen.getByLabelText("OTP"),
+                "12345",
             );
+
+            expect(
+                screen.getByRole("button", {
+                    name: "Continue",
+                }),
+            ).toBeDisabled();
+
+            expect(mockRouterPush).not.toHaveBeenCalled();
         });
     });
 });

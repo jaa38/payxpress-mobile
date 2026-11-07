@@ -1,4 +1,3 @@
-
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import SecurePasswordScreen from "../register/secure-password";
 
@@ -37,6 +36,22 @@ jest.mock("@/hooks/use-theme", () => ({
                 primary: "#000000",
                 secondary: "#666666",
             },
+            input: {
+                border: "#CCCCCC",
+            },
+            action: {
+                primary: {
+                    background: "#008000",
+                    text: "#FFFFFF",
+                },
+            },
+            border: {
+                default: "#CCCCCC",
+            },
+            text: {
+                primary: "#000000",
+                secondary: "#666666",
+            },
         },
     }),
 }));
@@ -53,10 +68,7 @@ jest.mock("@/components/ui/AppText", () => {
 
 jest.mock("@/components/ui/Input", () => {
     const React = require("react");
-    const {
-        View,
-        TextInput,
-    } = require("react-native");
+    const { View, TextInput } = require("react-native");
 
     return {
         Input: ({
@@ -131,6 +143,14 @@ describe("SecurePasswordScreen", () => {
         fireEvent.changeText(
             screen.getByLabelText("Confirm Password"),
             confirmation,
+        );
+    };
+
+    const acceptTerms = () => {
+        fireEvent.press(
+            screen.getByLabelText(
+                "Accept Terms of Service and Privacy Policy",
+            ),
         );
     };
 
@@ -292,10 +312,11 @@ describe("SecurePasswordScreen", () => {
             ).toBe(true);
         });
 
-        it("enables Create Account when all requirements are satisfied", () => {
+        it("enables Create Account when all requirements are satisfied and terms are accepted", () => {
             renderScreen();
 
             enterValidPassword();
+            acceptTerms();
 
             expect(
                 getCreateAccountButton().props.accessibilityState.disabled,
@@ -501,14 +522,21 @@ describe("SecurePasswordScreen", () => {
             expect(mockBack).toHaveBeenCalledTimes(1);
         });
 
-        it("replaces the route with the tabs screen after successful account creation", () => {
+        it("displays a registration unavailable message when account creation is not connected", () => {
             renderScreen();
 
             enterValidPassword();
+            acceptTerms();
 
             fireEvent.press(getCreateAccountButton());
 
-            expect(mockReplace).toHaveBeenCalledWith("/(tabs)");
+            expect(
+                screen.getByText(
+                    "Account creation is not connected yet. Please try again once registration services are available.",
+                ),
+            ).toBeTruthy();
+
+            expect(mockReplace).not.toHaveBeenCalled();
         });
     });
 });

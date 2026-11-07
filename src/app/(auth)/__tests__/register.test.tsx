@@ -1,4 +1,3 @@
-
 import {
     fireEvent,
     render,
@@ -6,6 +5,7 @@ import {
 } from "@testing-library/react-native";
 import React from "react";
 
+import { useRegistrationStore } from "@/store/registration-store";
 import RegisterScreen from "../register";
 
 const mockRouterBack = jest.fn();
@@ -147,6 +147,9 @@ jest.mock("@/components/ui/Button", () => {
 describe("RegisterScreen", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // Reset the Zustand registration store between tests.
+        useRegistrationStore.getState().clearDraft();
     });
 
     describe("Rendering", () => {
@@ -220,7 +223,9 @@ describe("RegisterScreen", () => {
             render(<RegisterScreen />);
 
             expect(
-                screen.getByText(/In line with the latest regulatory requirement from the CBN/),
+                screen.getByText(
+                    /In line with the latest regulatory requirement from the CBN/,
+                ),
             ).toBeTruthy();
         });
 
@@ -344,9 +349,9 @@ describe("RegisterScreen", () => {
         it("does not navigate when Next is pressed with an invalid BVN", () => {
             render(<RegisterScreen />);
 
-            fireEvent.press(
+            expect(
                 screen.getByRole("button", { name: "Next" }),
-            );
+            ).toBeDisabled();
 
             expect(mockRouterPush).not.toHaveBeenCalled();
         });

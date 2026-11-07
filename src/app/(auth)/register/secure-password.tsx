@@ -26,6 +26,7 @@ export default function SecurePasswordScreen() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
 
   // Password requirements
   const hasMinimumLength = password.length >= 8;
@@ -40,14 +41,15 @@ export default function SecurePasswordScreen() {
     confirmPassword.length > 0 &&
     password === confirmPassword;
 
-  // Enable Create Account only when all requirements are met
+  // Enable account creation only when all requirements are met
   const canCreateAccount =
     hasMinimumLength &&
     hasUppercase &&
     hasLowercase &&
     hasNumber &&
     hasSpecialCharacter &&
-    passwordsMatch;
+    passwordsMatch &&
+    hasAcceptedTerms;
 
   const handleCreateAccount = () => {
     if (!hasMinimumLength) {
@@ -80,12 +82,25 @@ export default function SecurePasswordScreen() {
       return;
     }
 
-    setError("");
+    if (!hasAcceptedTerms) {
+      setError("Please accept the Terms of Service and Privacy Policy.");
+      return;
+    }
 
-    // TODO: Connect account creation to the registration API.
-    // TODO: Store authentication tokens securely after successful registration.
+    setError(
+      "Account creation is not connected yet. Please try again once registration services are available.",
+    );
 
-    router.replace("/(tabs)");
+    // IMPORTANT:
+    // Do not navigate to /(tabs) here.
+    // Account creation must first:
+    // 1. Submit the registration payload to the backend.
+    // 2. Receive a successful registration response.
+    // 3. Store authentication tokens securely.
+    // 4. Retrieve/establish the authenticated user.
+    // 5. Update the authentication store.
+    //
+    // Only then should the user be redirected to /(tabs).
   };
 
   return (
@@ -324,6 +339,63 @@ export default function SecurePasswordScreen() {
               </AppText>
             ) : null}
           </View>
+
+          {/* Legal Consent */}
+          <Pressable
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: hasAcceptedTerms }}
+            accessibilityLabel="Accept Terms of Service and Privacy Policy"
+            onPress={() => {
+              setHasAcceptedTerms((current) => !current);
+              setError("");
+            }}
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-start",
+              marginTop: spacing.xl,
+              gap: spacing.sm,
+            }}
+          >
+            <View
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: hasAcceptedTerms
+                  ? theme.action.primary.background
+                  : theme.input.border,
+                backgroundColor: hasAcceptedTerms
+                  ? theme.action.primary.background
+                  : "transparent",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 2,
+              }}
+            >
+              {hasAcceptedTerms && (
+                <Ionicons
+                  name="checkmark"
+                  size={15}
+                  color={theme.action.primary.text}
+                />
+              )}
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <AppText variant="bodySmall" color="muted">
+                I agree to the{" "}
+                <AppText variant="bodySmallBold" color="brand">
+                  Terms of Service
+                </AppText>
+                {" "}and{" "}
+                <AppText variant="bodySmallBold" color="brand">
+                  Privacy Policy
+                </AppText>
+                .
+              </AppText>
+            </View>
+          </Pressable>
 
           {/* Create Account */}
           <View style={{ paddingBottom: spacing.sm }}>

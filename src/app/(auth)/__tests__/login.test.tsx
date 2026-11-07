@@ -6,15 +6,15 @@ import {
     waitFor,
 } from "@testing-library/react-native";
 import React from "react";
-import {
-    Alert,
-} from "react-native";
+import { Alert } from "react-native";
 
 import LoginScreen from "../login";
 
 const mockRouterBack = jest.fn();
 const mockRouterPush = jest.fn();
 const mockAuthenticate = jest.fn();
+const mockLogin = jest.fn();
+const mockLoggerInfo = jest.fn();
 const mockLoggerError = jest.fn();
 
 jest.mock("expo-router", () => ({
@@ -38,6 +38,12 @@ jest.mock("@/hooks/use-theme", () => ({
     }),
 }));
 
+jest.mock("@/services/auth/auth-service", () => ({
+    authService: {
+        login: (...args: unknown[]) => mockLogin(...args),
+    },
+}));
+
 jest.mock("@/services/auth/biometric-auth", () => ({
     biometricAuth: {
         authenticate: (...args: unknown[]) =>
@@ -47,8 +53,8 @@ jest.mock("@/services/auth/biometric-auth", () => ({
 
 jest.mock("@/utils/logger", () => ({
     logger: {
-        error: (...args: unknown[]) =>
-            mockLoggerError(...args),
+        info: (...args: unknown[]) => mockLoggerInfo(...args),
+        error: (...args: unknown[]) => mockLoggerError(...args),
     },
 }));
 
@@ -163,11 +169,30 @@ describe("LoginScreen", () => {
         mockAuthenticate.mockResolvedValue({
             success: true,
         });
+
+        mockLogin.mockResolvedValue({});
     });
+
+    const renderScreen = () => render(<LoginScreen />);
+
+    const enterValidCredentials = (
+        email = "customer@example.com",
+        password = "Password123",
+    ) => {
+        fireEvent.changeText(
+            screen.getByLabelText("Email Address"),
+            email,
+        );
+
+        fireEvent.changeText(
+            screen.getByLabelText("Password"),
+            password,
+        );
+    };
 
     describe("Rendering", () => {
         it("renders the welcome heading", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
                 screen.getByText("Welcome back"),
@@ -175,7 +200,7 @@ describe("LoginScreen", () => {
         });
 
         it("renders the login description", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
                 screen.getByText("Log in to your PayXpress account."),
@@ -183,7 +208,7 @@ describe("LoginScreen", () => {
         });
 
         it("renders the email and password inputs", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
                 screen.getByLabelText("Email Address"),
@@ -195,10 +220,12 @@ describe("LoginScreen", () => {
         });
 
         it("renders the login and biometric buttons", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeTruthy();
 
             expect(
@@ -209,7 +236,7 @@ describe("LoginScreen", () => {
         });
 
         it("renders the forgot password action", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
                 screen.getByRole("button", {
@@ -219,25 +246,29 @@ describe("LoginScreen", () => {
         });
 
         it("renders the registration action", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
-                screen.getByRole("button", { name: "Register" }),
+                screen.getByRole("button", {
+                    name: "Register",
+                }),
             ).toBeTruthy();
         });
     });
 
     describe("Form validation", () => {
         it("disables login when the form is empty", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeDisabled();
         });
 
         it("keeps login disabled when the email is invalid", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.changeText(
                 screen.getByLabelText("Email Address"),
@@ -250,12 +281,14 @@ describe("LoginScreen", () => {
             );
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeDisabled();
         });
 
         it("keeps login disabled when the password is empty", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.changeText(
                 screen.getByLabelText("Email Address"),
@@ -263,50 +296,43 @@ describe("LoginScreen", () => {
             );
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeDisabled();
         });
 
         it("enables login when email and password are provided", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
-            fireEvent.changeText(
-                screen.getByLabelText("Email Address"),
-                "customer@example.com",
-            );
-
-            fireEvent.changeText(
-                screen.getByLabelText("Password"),
-                "Password123",
-            );
+            enterValidCredentials();
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeEnabled();
         });
 
         it("accepts an email with surrounding whitespace", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
-            fireEvent.changeText(
-                screen.getByLabelText("Email Address"),
+            enterValidCredentials(
                 " customer@example.com ",
-            );
-
-            fireEvent.changeText(
-                screen.getByLabelText("Password"),
                 "Password123",
             );
 
             expect(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             ).toBeEnabled();
         });
     });
 
     describe("Password visibility", () => {
         it("hides the password by default", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             expect(
                 screen.getByLabelText("Password").props.secureTextEntry,
@@ -320,7 +346,7 @@ describe("LoginScreen", () => {
         });
 
         it("shows the password when the visibility button is pressed", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -340,7 +366,7 @@ describe("LoginScreen", () => {
         });
 
         it("hides the password again when pressed a second time", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -362,41 +388,45 @@ describe("LoginScreen", () => {
 
     describe("Navigation", () => {
         it("navigates back when the back button is pressed", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
-                screen.getByRole("button", { name: "Go back" }),
+                screen.getByRole("button", {
+                    name: "Go back",
+                }),
             );
 
             expect(mockRouterBack).toHaveBeenCalledTimes(1);
         });
 
         it("navigates to registration when Register is pressed", () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
-                screen.getByRole("button", { name: "Register" }),
+                screen.getByRole("button", {
+                    name: "Register",
+                }),
             );
 
             expect(mockRouterPush).toHaveBeenCalledWith("/register");
         });
 
-        it("does not navigate when Forgot password is pressed", () => {
-            render(<LoginScreen />);
+        it("navigates to forgot password when Forgot password is pressed", () => {
+            renderScreen();
 
             fireEvent.press(
-                screen.getByRole("button", {
-                    name: "Forgot password",
-                }),
+                screen.getByText("Forgot password?"),
             );
 
-            expect(mockRouterPush).not.toHaveBeenCalled();
+            expect(mockRouterPush).toHaveBeenCalledWith(
+                "/forgot-password",
+            );
         });
     });
 
     describe("Biometric authentication", () => {
         it("calls biometric authentication when Face ID is pressed", async () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -416,7 +446,7 @@ describe("LoginScreen", () => {
                 success: true,
             });
 
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -450,7 +480,7 @@ describe("LoginScreen", () => {
                     error,
                 });
 
-                render(<LoginScreen />);
+                renderScreen();
 
                 fireEvent.press(
                     screen.getByRole("button", {
@@ -476,7 +506,7 @@ describe("LoginScreen", () => {
                 error: "Authentication failed",
             });
 
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -501,7 +531,7 @@ describe("LoginScreen", () => {
                 success: false,
             });
 
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -528,7 +558,7 @@ describe("LoginScreen", () => {
                 new Error("Unexpected biometric error"),
             );
 
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -551,7 +581,7 @@ describe("LoginScreen", () => {
         });
 
         it("resets biometric loading after authentication completes", async () => {
-            render(<LoginScreen />);
+            renderScreen();
 
             fireEvent.press(
                 screen.getByRole("button", {
@@ -570,24 +600,140 @@ describe("LoginScreen", () => {
     });
 
     describe("Login action", () => {
-        it("does not call biometric authentication when normal login is pressed", () => {
-            render(<LoginScreen />);
+        it("calls the authentication service with normalized customer credentials", async () => {
+            renderScreen();
 
-            fireEvent.changeText(
-                screen.getByLabelText("Email Address"),
-                "customer@example.com",
-            );
-
-            fireEvent.changeText(
-                screen.getByLabelText("Password"),
+            enterValidCredentials(
+                " Customer@Example.com ",
                 "Password123",
             );
 
             fireEvent.press(
-                screen.getByRole("button", { name: "Login" }),
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
             );
 
+            await waitFor(() => {
+                expect(mockLogin).toHaveBeenCalledWith({
+                    email: "customer@example.com",
+                    password: "Password123",
+                });
+            });
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("button", {
+                        name: "Login",
+                    }),
+                ).toBeEnabled();
+            });
+        });
+
+        it("does not call biometric authentication when normal login is pressed", async () => {
+            renderScreen();
+
+            enterValidCredentials();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
+            );
+
+            await waitFor(() => {
+                expect(mockLogin).toHaveBeenCalledTimes(1);
+            });
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("button", {
+                        name: "Login",
+                    }),
+                ).toBeEnabled();
+            });
+
             expect(mockAuthenticate).not.toHaveBeenCalled();
+        });
+
+        it("does not navigate to the dashboard before authentication is established", async () => {
+            renderScreen();
+
+            enterValidCredentials();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
+            );
+
+            await waitFor(() => {
+                expect(mockLogin).toHaveBeenCalledTimes(1);
+            });
+
+            expect(mockRouterPush).not.toHaveBeenCalled();
+            expect(mockRouterBack).not.toHaveBeenCalled();
+        });
+
+        it("displays the login response message after the service responds", async () => {
+            const alertSpy = jest.spyOn(Alert, "alert");
+
+            renderScreen();
+
+            enterValidCredentials();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
+            );
+
+            await waitFor(() => {
+                expect(mockLogin).toHaveBeenCalledTimes(1);
+                expect(mockLoggerInfo).toHaveBeenCalledWith(
+                    "Login API request completed.",
+                );
+                expect(alertSpy).toHaveBeenCalledWith(
+                    "Login response received",
+                    expect.stringContaining(
+                        "Session establishment is pending backend response mapping.",
+                    ),
+                );
+            });
+
+            alertSpy.mockRestore();
+        });
+
+        it("displays an error when the login service rejects", async () => {
+            mockLogin.mockRejectedValue(
+                new Error("Invalid credentials"),
+            );
+
+            renderScreen();
+
+            enterValidCredentials();
+
+            fireEvent.press(
+                screen.getByRole("button", {
+                    name: "Login",
+                }),
+            );
+
+            expect(
+                await screen.findByText("Invalid credentials"),
+            ).toBeTruthy();
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("button", {
+                        name: "Login",
+                    }),
+                ).toBeEnabled();
+            });
+
+            expect(mockLoggerError).toHaveBeenCalledWith(
+                "Login request failed.",
+            );
         });
     });
 });

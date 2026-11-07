@@ -8,7 +8,9 @@ interface AuthBootstrapProps {
 
 export function AuthBootstrap({ children }: AuthBootstrapProps) {
   useEffect(() => {
-    void hydrateAuth();
+    void hydrateAuth().catch((error) => {
+      console.error("Authentication bootstrap failed:", error);
+    });
   }, []);
 
   return children;
